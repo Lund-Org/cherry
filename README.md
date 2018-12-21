@@ -1,6 +1,6 @@
 ### :warning: WORK IN PROGRESS :warning:
 
-# Cherry
+# 🍒 Cherry
 
 Cherry is a lightweight framework to quickly generate a web server
 
@@ -14,11 +14,21 @@ npm install @lund-org/cherry
 
 ## Usage
 
-Checkout the example in the static folder.
-To use the https mode, you need to generate the ssl keys, you can use this command in the config folder :
+Checkout the example in the [example folder](https://github.com/Lund-Org/cherry/tree/master/example).
+*For the development* : To use the https mode, you need to generate the ssl keys, you can use this command in the config folder :
 ```bash
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=FR/ST=./L=./O=./OU=./CN=."
 ```
+
+## To do list
+
+- [ ] [Response management, including view (default), download and json (a builtin helper)](https://github.com/Lund-Org/cherry/issues/1)
+- [ ] [Templating management (a base for the plugins)](https://github.com/Lund-Org/cherry/issues/2)
+- [ ] [Debug mode (logger)](https://github.com/Lund-Org/cherry/issues/3)
+- [ ] [ORM integration](https://github.com/Lund-Org/cherry/issues/4)
+- [ ] [Builtin helpers](https://github.com/Lund-Org/cherry/issues/5)
+- [ ] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
+- [ ] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

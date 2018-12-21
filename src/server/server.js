@@ -30,10 +30,10 @@ function setupDefaultOptions (options) {
   if (!check.isDefined(options.controlOptions, 'Access-Control-Allow-Headers')) {
     options.controlOptions['Access-Control-Allow-Headers'] = '*'
   }
-  if (check.isDefinedAndValid(options, 'http') && !check.isDefined(options, 'httpPort')) {
+  if (!check.isDefined(options, 'httpPort')) {
     options.httpPort = 4000
   }
-  if (check.isDefinedAndValid(options, 'https') && !check.isDefined(options, 'httpsPort')) {
+  if (!check.isDefined(options, 'httpsPort')) {
     options.httpsPort = 5000
 
     if (!check.isDefinedAndNotNull(options, 'httpsKeys')) {
