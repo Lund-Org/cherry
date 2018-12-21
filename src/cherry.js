@@ -28,11 +28,11 @@ module.exports = {
     servers = createServer(dispatcher, options)
   },
   start (options) {
-    if (typeof servers.httpPort !== 'undefined' && servers.httpPort) {
+    if (typeof servers.http !== 'undefined' && servers.http) {
       console.log(`Starting the http server on the port : ${options.httpPort}`)
       servers.http.listen(options.httpPort)
     }
-    if (typeof servers.httpsPort !== 'undefined' && servers.httpsPort) {
+    if (typeof servers.https !== 'undefined' && servers.https) {
       console.log(`Starting the https server on the port : ${options.httpsPort}`)
       servers.https.listen(options.httpsPort)
     }

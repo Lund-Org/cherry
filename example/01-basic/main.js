@@ -9,9 +9,7 @@ const options = {
     res.writeHead(404)
     res.end('Error, the URL doesn\'t exist')
   },
-  http: true,
   httpPort: 4001,
-  https: true,
   httpsPort: 4002,
   httpsKeys: {
     key: fs.readFileSync(path.join(__dirname, '../../config/key.pem')),

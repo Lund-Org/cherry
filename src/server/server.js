@@ -1,15 +1,16 @@
 const httpModule = require('http')
 const httpsModule = require('https')
 const check = require('../helpers/check')
+const responseBuiltins = require('../builtins/response')
 
 /**
  * Method to handle requests and send response depending the url
  * Format of the options method :
  * {
  *    controlOptions: { <the options set as header result> },
- *    serverOptions: { <the options sent to the http(s).createServer method> },
  *    httpPort: <integer>,
- *    httpsPort: <integer>
+ *    httpsPort: <integer>,
+ *    httpsKeys: {}
  * }
  * @param {Object} options The options object
  */
@@ -30,15 +31,8 @@ function setupDefaultOptions (options) {
   if (!check.isDefined(options.controlOptions, 'Access-Control-Allow-Headers')) {
     options.controlOptions['Access-Control-Allow-Headers'] = '*'
   }
-  if (!check.isDefined(options, 'httpPort')) {
-    options.httpPort = 4000
-  }
-  if (!check.isDefined(options, 'httpsPort')) {
-    options.httpsPort = 5000
-
-    if (!check.isDefinedAndNotNull(options, 'httpsKeys')) {
-      options.httpsKeys = {}
-    }
+  if (!check.isDefined(options, 'httpsPort') && !check.isDefinedAndNotNull(options, 'httpsKeys')) {
+    options.httpsKeys = {}
   }
 }
 
@@ -61,16 +55,19 @@ function createServer (dispatcher, options) {
       res.end()
       return
     }
+    for (let responseBuiltinName in responseBuiltins) {
+      res[responseBuiltinName] = responseBuiltins[responseBuiltinName].bind(res)
+    }
     handleRequest(dispatcher, req, res)
   }
 
-  if (check.isDefinedAndValid(options, 'http')) {
+  if (check.isDefinedAndValid(options, 'httpPort')) {
     servers.http = httpModule.createServer(initializeServer)
   }
-  if (check.isDefinedAndValid(options, 'https')) {
-    servers.https = httpsModule.createServer(Object.assign(
-      {},
-      options.httpsKeys
+  if (check.isDefinedAndValid(options, 'httpsPort')) {
+  servers.https = httpsModule.createServer(Object.assign(
+    {},
+    options.httpsKeys
     ), initializeServer)
   }
 
