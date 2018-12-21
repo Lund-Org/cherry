@@ -29,6 +29,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 - [ ] [Builtin helpers](https://github.com/Lund-Org/cherry/issues/5)
 - [ ] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
 - [ ] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
+- [ ] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
