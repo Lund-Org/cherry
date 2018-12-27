@@ -1,0 +1,42 @@
+{
+  "name": "cherry",
+  "version": "0.0.1",
+  "description": "A light framework to quickly create a web server",
+  "main": "./src/cherry.js",
+  "author": "Lund-Org",
+  "license": "MIT",
+  "homepage": "https://github.com/Lund-Org/cherry#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lund-Org/cherry.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lund-Org/cherry/issues"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "echo 'not implemented yet'"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  },
+  "keywords": [
+    "framework",
+    "lightweight"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "./src/"
+  ]
+}

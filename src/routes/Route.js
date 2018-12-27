@@ -32,7 +32,7 @@ class Route {
     }
     if (this.path.match(/:([A-Za-z0-9_-~]+)/g)) {
       this.attributesMatches = this.path.match(/:([A-Za-z0-9_-~]+)/g).map((routeAttribute) => {
-        //We remove the ':'
+        // We remove the ':'
         return routeAttribute.substr(1)
       })
       this.routeRegex = new RegExp(`^${this.path.replace(/:[A-Za-z0-9_-~]+/g, '(.+)')}$`)

@@ -50,9 +50,9 @@ function _getMiddlewares (method, registeredMiddleware, routeMiddlewares) {
     }
   } else if (typeof routeMiddlewares === 'string') {
     if (typeof registeredMiddleware[routeMiddlewares] !== 'undefined') {
-      middlewaresInstanceList.push(new Middleware(previousMiddleware, registeredMiddleware[middlewares]))
+      middlewaresInstanceList.push(new Middleware(previousMiddleware, registeredMiddleware[routeMiddlewares]))
     } else {
-      throw new MiddlewareError(middleware)
+      throw new MiddlewareError(routeMiddlewares)
     }
   }
 
