@@ -1,12 +1,10 @@
-### :warning: WORK IN PROGRESS :warning:
-
 # 🍒 Cherry
 
 [![Build Status](https://travis-ci.com/Lund-Org/cherry.svg?branch=master)](https://travis-ci.com/Lund-Org/cherry)
 
 Cherry is a lightweight framework to quickly generate a web server
 
-## Installation
+## :electric_plug: Installation
 
 Use the package manager [npm](http://npmjs.com) to install Cherry.
 
@@ -14,7 +12,7 @@ Use the package manager [npm](http://npmjs.com) to install Cherry.
 npm install @lund-org/cherry
 ```
 
-## Usage
+## :wrench: Usage
 
 Checkout the example in the [example folder](https://github.com/Lund-Org/cherry/tree/master/example).
 
@@ -24,7 +22,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 ```
 Warning : It doesn't work on Windows, you will only get the key.pem
 
-## To do list
+## :scroll: To do list
 
 - [x] [Response management, including view (default), download and json (a builtin helper)](https://github.com/Lund-Org/cherry/issues/1)
 - [x] [Templating management (a base for the plugins)](https://github.com/Lund-Org/cherry/issues/2)
@@ -35,10 +33,13 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 - [ ] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
 - [ ] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
 
-## Contributing
+## :open_file_folder: Resources
+- [Cherry Handlebars connector](https://github.com/Lund-Org/cherry-handlebars-connector) : The plugin which use [handlebars](https://handlebarsjs.com/) as the view engine
+
+## :pencil2: Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
-## License
+## :book: License
 [MIT](https://github.com/Lund-Org/cherry/blob/master/LICENSE)
