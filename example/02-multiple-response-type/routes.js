@@ -18,5 +18,26 @@ module.exports = [
         downloadFilename: 'routes-file.json'
       })
     }
+  },
+  {
+    method: ['GET'],
+    path: '/json-string',
+    callback: (req, res) => {
+      return res.json('{ "foo": "bar" }')
+    }
+  },
+  {
+    method: ['GET'],
+    path: '/json-object',
+    callback: (req, res) => {
+      let obj = {
+        key: 'value'
+      }
+      obj.circular = obj
+      return res.json({
+        foo: 'bar',
+        ref: obj
+      }, { indent: 4 })
+    }
   }
 ]

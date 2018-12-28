@@ -89,7 +89,7 @@ class Dispatcher {
           response
         )
       }).catch((e) => {
-        this.errorListener(request, response)
+        this.errorListener(request, response, e)
       })
     } else {
       console.log('No route found')

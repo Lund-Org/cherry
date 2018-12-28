@@ -5,9 +5,10 @@ const middlewares = require('./middlewares')
 const cherry = require('../../src/cherry')
 
 const options = {
-  onError: (req, res) => {
+  onError: (req, res, e) => {
+    console.log(e)
     res.writeHead(404)
-    res.end('Error, the URL doesn\'t exist')
+    res.end('An error occured')
   },
   httpPort: 4001,
   httpsPort: 4002,

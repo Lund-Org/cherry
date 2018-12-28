@@ -15,10 +15,12 @@ npm install @lund-org/cherry
 ## Usage
 
 Checkout the example in the [example folder](https://github.com/Lund-Org/cherry/tree/master/example).
+
 *For the development* : To use the https mode, you need to generate the ssl keys, you can use this command in the config folder :
 ```bash
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj "/C=FR/ST=./L=./O=./OU=./CN=."
 ```
+Warning : It doesn't work on Windows, you will only get the key.pem
 
 ## To do list
 

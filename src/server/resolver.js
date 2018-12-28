@@ -78,6 +78,7 @@ function resolver (route, dispatcher) {
     try {
       middlewares = _getMiddlewares(method, dispatcher.middlewares, route.middlewares)
     } catch (middlewareException) {
+      // @todo : Need to use the onError callback configured
       return (req, res) => {
         res.writeHead(500, { 'Content-Type': 'application/json' })
         res.end(JSON.stringify({ message: middlewareException.message }))
