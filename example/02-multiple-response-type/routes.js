@@ -68,5 +68,24 @@ module.exports = [
         }
       )
     }
+  },
+  {
+    method: ['GET'],
+    name: 'html-from-pug-file',
+    path: '/html-pug-file',
+    callback: (req, res) => {
+      // If you want to test this route, update the main.js to load the right view engine.
+      // Handlebars is used by default.
+      return res.html(
+        path.join(__dirname, '/my-pug-view.pug'),
+        {
+          parameters: {
+            cherryName: 'Cherry framework',
+            routeName: req._route.name
+          },
+          viewEngine: { pretty: true }
+        }
+      )
+    }
   }
 ]
