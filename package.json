@@ -1,5 +1,5 @@
 {
-  "name": "cherry",
+  "name": "@lund-org/cherry",
   "version": "0.0.1",
   "description": "A light framework to quickly create a web server",
   "main": "./src/cherry.js",
@@ -25,6 +25,7 @@
     "json-stringify-safe": "^5.0.1"
   },
   "devDependencies": {
+    "@lund-org/cherry-handlebars-connector": "^0.0.5",
     "eslint": "^5.10.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
@@ -40,6 +41,6 @@
     "access": "public"
   },
   "files": [
-    "./src/"
+    "src"
   ]
 }

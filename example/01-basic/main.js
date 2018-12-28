@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const routes = require('./routes')
 const middlewares = require('./middlewares')
-const cherry = require('../../src/cherry')
+const Cherry = require('../../src/cherry')
 
 const options = {
   onError: (req, res, e) => {
@@ -18,5 +18,6 @@ const options = {
   }
 }
 
+const cherry = new Cherry()
 cherry.configure(routes, middlewares, options)
 cherry.start(options)

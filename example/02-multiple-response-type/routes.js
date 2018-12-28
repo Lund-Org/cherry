@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = [
   {
     method: ['GET'],
@@ -13,7 +15,7 @@ module.exports = [
     method: ['GET'],
     path: '/download-file',
     callback: (req, res) => {
-      return res.download(__dirname + '/routes.js', {
+      return res.download(path.join(__dirname, '/routes.js'), {
         isFilename: true,
         downloadFilename: 'routes-file.json'
       })
@@ -38,6 +40,33 @@ module.exports = [
         foo: 'bar',
         ref: obj
       }, { indent: 4 })
+    }
+  },
+  {
+    method: ['GET'],
+    path: '/html-raw',
+    callback: (req, res) => {
+      return res.html(
+        '<div style="background: red; width: 500px; height: 500px;"></div>',
+        { isRaw: true }
+      )
+    }
+  },
+  {
+    method: ['GET'],
+    name: 'html-from-file',
+    path: '/html-file',
+    callback: (req, res) => {
+      return res.html(
+        path.join(__dirname, '/my-handlebar-view.html'),
+        {
+          parameters: {
+            cherryName: 'Cherry framework',
+            routeName: req._route.name
+          },
+          viewEngine: 'utf8'
+        }
+      )
     }
   }
 ]

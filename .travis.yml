@@ -16,7 +16,7 @@ stages:
   - name: npm release
     if: tag =~ /^\d+\.\d+\.\d+$/
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build lcov --exit-code $TRAVIS_TEST_RESULT
 jobs:
   include:
     - stage: npm release

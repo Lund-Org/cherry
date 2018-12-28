@@ -2,6 +2,8 @@
 
 # 🍒 Cherry
 
+[![Build Status](https://travis-ci.com/Lund-Org/cherry.svg?branch=master)](https://travis-ci.com/Lund-Org/cherry)
+
 Cherry is a lightweight framework to quickly generate a web server
 
 ## Installation
@@ -24,8 +26,8 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 
 ## To do list
 
-- [ ] [Response management, including view (default), download and json (a builtin helper)](https://github.com/Lund-Org/cherry/issues/1)
-- [ ] [Templating management (a base for the plugins)](https://github.com/Lund-Org/cherry/issues/2)
+- [x] [Response management, including view (default), download and json (a builtin helper)](https://github.com/Lund-Org/cherry/issues/1)
+- [x] [Templating management (a base for the plugins)](https://github.com/Lund-Org/cherry/issues/2)
 - [ ] [Debug mode (logger)](https://github.com/Lund-Org/cherry/issues/3)
 - [ ] [ORM integration](https://github.com/Lund-Org/cherry/issues/4)
 - [ ] [Builtin helpers](https://github.com/Lund-Org/cherry/issues/5)

@@ -1,40 +1,56 @@
-const createServer = require('./server/server')
+const Server = require('./server/server')
 const Dispatcher = require('./server/Dispatcher')
 const Route = require('./routes/Route')
 const check = require('./helpers/check')
 
-let dispatcher = new Dispatcher()
-let servers = { http: null, https: null }
+class Cherry {
+  constructor () {
+    this.dispatcher = new Dispatcher(this)
+    this.http = null
+    this.http = null
+    this.server = new Server(this.dispatcher)
+    this.plugins = {
+      ViewEngine: null
+    }
+  }
 
-module.exports = {
-  dispatcher,
-  servers,
   configure (routes, middlewares, options = {}) {
+    let servers = null
+
     if (check.isDefined(options, 'onError')) {
-      dispatcher.onError(options.onError)
+      this.dispatcher.onError(options.onError)
     }
 
     routes.forEach((route) => {
       if (route instanceof Route) {
-        dispatcher.addRoute(route)
+        this.dispatcher.addRoute(route)
       } else {
-        dispatcher.addRoute(new Route(route))
+        this.dispatcher.addRoute(new Route(route))
       }
     })
     middlewares.forEach((middleware) => {
-      dispatcher.addMiddleware(middleware)
+      this.dispatcher.addMiddleware(middleware)
     })
 
-    servers = createServer(dispatcher, options)
-  },
+    servers = this.server.createServer(options)
+    this.http = servers.http
+    this.https = servers.https
+  }
+
   start (options) {
-    if (typeof servers.http !== 'undefined' && servers.http) {
+    if (typeof this.http !== 'undefined' && this.http) {
       console.log(`Starting the http server on the port : ${options.httpPort}`)
-      servers.http.listen(options.httpPort)
+      this.http.listen(options.httpPort)
     }
-    if (typeof servers.https !== 'undefined' && servers.https) {
+    if (typeof this.https !== 'undefined' && this.https) {
       console.log(`Starting the https server on the port : ${options.httpsPort}`)
-      servers.https.listen(options.httpsPort)
+      this.https.listen(options.httpsPort)
     }
   }
+
+  registerPlugin (plugin) {
+    this.plugins[plugin.getIdentifier()] = plugin
+  }
 }
+
+module.exports = Cherry

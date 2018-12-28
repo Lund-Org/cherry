@@ -32,6 +32,21 @@ function defaultDownloadOptions () {
 }
 
 /**
+ * The default option for the html response
+ * @return {Object}
+ */
+function defaultHTMLOptions () {
+  return Object.freeze({
+    headers: {
+      'Content-Type': 'text/html'
+    },
+    statusCode: 200,
+    isRaw: false,
+    parameters: {}
+  })
+}
+
+/**
  * The default option for the json response
  * @return {Object}
  */
@@ -76,8 +91,39 @@ async function download (str, refOptions = null) {
   response.call(this, options.statusCode, options.headers, content)
 }
 
-function html () {
-  
+/**
+ * A method to render an html response
+ * @param {string} str The html or the path to the view
+ * @param {object} refOptions The options of the response and the process
+ */
+async function html (str, refOptions = null) {
+  const options = Object.assign({}, defaultHTMLOptions(), refOptions)
+  let htmlContent = str
+  let viewEngine = null
+
+  if (!check.isDefinedAndNotNull(this.cherry.plugins, 'ViewEngine')) {
+    viewEngine = {
+      loadTemplate: async (path) => {
+        htmlContent = await fs.readFile(path)
+      },
+      useHtml: (html) => {
+        htmlContent = html
+      },
+      bindTemplate: () => true,
+      getRenderedHtml: () => htmlContent
+    }
+  } else {
+    viewEngine = new this.cherry.plugins.ViewEngine(options)
+  }
+  if (!options.isRaw) {
+    await viewEngine.loadTemplate(str)
+    viewEngine.bindTemplate(options.parameters)
+  } else {
+    viewEngine.useHtml(str)
+  }
+  htmlContent = viewEngine.getRenderedHtml()
+
+  response.call(this, options.statusCode, options.headers, htmlContent)
 }
 
 /**
