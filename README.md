@@ -34,7 +34,8 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 - [ ] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
 
 ## :open_file_folder: Resources
-- [Cherry Handlebars connector](https://github.com/Lund-Org/cherry-handlebars-connector) : The plugin which use [handlebars](https://handlebarsjs.com/) as the view engine
+- [Cherry Handlebars connector](https://github.com/Lund-Org/cherry-handlebars-connector) : The plugin which uses [handlebars](https://handlebarsjs.com/) as the view engine
+- [Cherry Pug connector](https://github.com/Lund-Org/cherry-pug-connector) : The plugin which uses [pug](https://pugjs.org/api/getting-started.html) as the view engine
 
 ## :pencil2: Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
