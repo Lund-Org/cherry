@@ -25,6 +25,7 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 
 ## :scroll: To do list
 
+- [ ] **[Top Priority : Manage the assets (route which match a public/asset folder)](https://github.com/Lund-Org/cherry/issues/9)**
 - [x] [Response management, including view (default), download and json (a builtin helper)](https://github.com/Lund-Org/cherry/issues/1)
 - [x] [Templating management (a base for the plugins)](https://github.com/Lund-Org/cherry/issues/2)
 - [ ] [Debug mode (logger)](https://github.com/Lund-Org/cherry/issues/3)
