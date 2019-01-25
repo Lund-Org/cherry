@@ -1,6 +1,7 @@
 # 🍒 Cherry
 
 [![Build Status](https://travis-ci.com/Lund-Org/cherry.svg?branch=master)](https://travis-ci.com/Lund-Org/cherry)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9a31be9be174ebcbd59f/maintainability)](https://codeclimate.com/github/Lund-Org/cherry/maintainability)
 
 Cherry is a lightweight framework to quickly generate a web server
 
