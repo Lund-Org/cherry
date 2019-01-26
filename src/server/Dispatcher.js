@@ -29,10 +29,12 @@ async function buildBodyDataAsync (request) {
 class Dispatcher {
   /**
    * The dispatcher is the tool which will match the incoming request with the registered routes
+   * @param {Cherry} cherryInstance The cherry instance
    */
-  constructor () {
+  constructor (cherryInstance) {
     this.routes = []
     this.middlewares = {}
+    this.cherry = cherryInstance
     this.errorListener = () => { throw new Error('You didn\'t set an errorListener in the dispatcher') }
   }
 
@@ -89,7 +91,7 @@ class Dispatcher {
           response
         )
       }).catch((e) => {
-        this.errorListener(request, response)
+        this.errorListener(request, response, e)
       })
     } else {
       console.log('No route found')

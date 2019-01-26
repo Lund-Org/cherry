@@ -7,5 +7,8 @@ module.exports = {
   ],
   env: {
     node: true
+  },
+  rules: {
+    'arrow-parens': 0
   }
 }

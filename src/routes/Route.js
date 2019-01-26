@@ -74,7 +74,7 @@ class Route {
     let result = path.match(this.routeRegex)
 
     if (!result) {
-      console.log('Route doesn\'t match')
+      console.log(`Route "${this.routeRegex}" doesn't match`)
       return null
     }
 
