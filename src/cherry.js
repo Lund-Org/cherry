@@ -7,7 +7,7 @@ class Cherry {
   constructor () {
     this.dispatcher = new Dispatcher(this)
     this.http = null
-    this.http = null
+    this.https = null
     this.server = new Server(this.dispatcher)
     this.plugins = {
       ViewEngine: null

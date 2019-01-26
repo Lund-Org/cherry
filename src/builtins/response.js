@@ -98,7 +98,7 @@ async function download (str, refOptions = null) {
  */
 async function html (str, refOptions = null) {
   const options = Object.assign({}, defaultHTMLOptions(), refOptions)
-  let htmlContent = str
+  let htmlContent = null
   let viewEngine = null
 
   if (!check.isDefinedAndNotNull(this.cherry.plugins, 'ViewEngine')) {
@@ -117,10 +117,10 @@ async function html (str, refOptions = null) {
   }
   if (!options.isRaw) {
     await viewEngine.loadTemplate(str)
-    viewEngine.bindTemplate(options.parameters)
   } else {
     viewEngine.useHtml(str)
   }
+  viewEngine.bindTemplate(options.parameters)
   htmlContent = viewEngine.getRenderedHtml()
 
   response.call(this, options.statusCode, options.headers, htmlContent)
