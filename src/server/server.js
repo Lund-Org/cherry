@@ -23,6 +23,9 @@ class Server {
     if (!check.isDefined(options, 'controlOptions')) {
       options.controlOptions = {}
     }
+    if (!check.isDefined(options, 'publicFolder')) {
+      options.publicFolder = null
+    }
 
     if (!check.isDefined(options.controlOptions, 'Access-Control-Allow-Origin')) {
       options.controlOptions['Access-Control-Allow-Origin'] = '*'
@@ -49,6 +52,7 @@ class Server {
   createServer (options) {
     let servers = { http: null, https: null }
     this.setupDefaultOptions(options)
+    this.dispatcher.setPublicFolder(options.publicFolder)
 
     const initializeServer = (req, res) => {
       for (const optionIndex in options.controlOptions) {

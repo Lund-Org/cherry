@@ -1,4 +1,5 @@
 const resolver = require('./resolver')
+const PublicRouteManager = require('../routes/PublicRouteManager')
 const querystring = require('querystring')
 
 /**
@@ -35,7 +36,16 @@ class Dispatcher {
     this.routes = []
     this.middlewares = {}
     this.cherry = cherryInstance
+    this.publicRouteManager = new PublicRouteManager()
     this.errorListener = () => { throw new Error('You didn\'t set an errorListener in the dispatcher') }
+  }
+
+  /**
+   * Allows to add route in the list of available routes
+   * @param {Object} route A route to add. It must have at least the keys : path, callback, method
+   */
+  setPublicFolder (publicFolder) {
+    this.publicRouteManager.setPublicFolder(publicFolder)
   }
 
   /**
@@ -61,6 +71,10 @@ class Dispatcher {
    */
   dispatch (request, response) {
     const method = request.method.toUpperCase()
+
+    if (method === 'GET' && this.publicRouteManager.checkPublicResource(request, response)) {
+      return
+    }
     let routeFound = null
     let url = require('url').parse(request.url, true).pathname
     if (!url.endsWith('/')) {

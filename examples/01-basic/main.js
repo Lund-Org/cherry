@@ -11,11 +11,12 @@ const options = {
     res.end('An error occured')
   },
   httpPort: 4001,
-  httpsPort: 4002,
-  httpsKeys: {
-    key: fs.readFileSync(path.join(__dirname, '../../config/key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, '../../config/cert.pem'))
-  }
+  // httpsPort: 4002,
+  // httpsKeys: {
+  //   key: fs.readFileSync(path.join(__dirname, '../../config/key.pem')),
+  //   cert: fs.readFileSync(path.join(__dirname, '../../config/cert.pem'))
+  // },
+  publicFolder: path.join(__dirname, './public/')
 }
 
 const cherry = new Cherry()
