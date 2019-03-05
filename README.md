@@ -31,7 +31,7 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 - [ ] [Debug mode (logger)](https://github.com/Lund-Org/cherry/issues/3)
 - [ ] [ORM integration](https://github.com/Lund-Org/cherry/issues/4)
 - [ ] [Builtin helpers](https://github.com/Lund-Org/cherry/issues/5)
-- [ ] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
+- [x] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
 - [ ] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
 - [ ] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
 
