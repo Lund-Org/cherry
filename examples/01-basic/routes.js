@@ -6,7 +6,7 @@ module.exports = [
       console.log('body :', req.body)
       console.log('route param :', req.routeParameters)
       console.log('route :', req._route)
-      res.writeHead(200, { 'Content-Type': 'application/json' })
+      res.writeHead(200, { 'Content-Type': 'text/html' })
       res.end('<div>ROOT page</div>')
     },
     middlewares: [ 'midOne', 'midThree' ]

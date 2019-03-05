@@ -9,11 +9,11 @@ const options = {
     res.writeHead(404)
     res.end('An error occured')
   },
-  httpPort: 4001
+  httpPort: 4003
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, [], options)
+cherry.configure(routes, [], [], options)
 cherry.registerPlugin(CherryHandlebarsConnector)
 // cherry.registerPlugin(CherryPugConnector)
 cherry.start(options)

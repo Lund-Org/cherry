@@ -1,5 +1,18 @@
 const Middleware = require('../middlewares/Middleware')
 const MiddlewareError = require('../middlewares/MiddlewareException')
+const { HOOK_BEFORE_PROCESS, HOOK_AFTER_PROCESS } = require('../hooks/constants')
+
+function _addMissingRespond (res, resultValue) {
+  if (!res.finished) {
+    if (typeof resultValue === 'object') {
+      res.json(resultValue)
+    } else if (typeof resultValue === 'string') {
+      res.end(resultValue)
+    } else {
+      res.end(resultValue.toString())
+    }
+  }
+}
 
 /**
  * Resolve the route by calling the right method, managing its possible asynchrony
@@ -12,14 +25,18 @@ function _resolve (callback, req, res, cherryInstance) {
   let resultOfMethod = callback(req, res, cherryInstance)
 
   if (Promise.resolve(resultOfMethod) === resultOfMethod) {
-    resultOfMethod.then((a) => {
-      // Perfect
+    resultOfMethod.then((asyncResult) => {
+      cherryInstance.hookManager.resolve(HOOK_AFTER_PROCESS, { req, res, processResult: asyncResult })
+      _addMissingRespond(res, asyncResult)
     }).catch((e) => {
       // @todo use the onError method
       console.log('Error in _resolve', e)
       res.writeHead(500, { 'Content-Type': 'application/json' })
       res.end(JSON.stringify(e))
     })
+  } else {
+    cherryInstance.hookManager.resolve(HOOK_AFTER_PROCESS, { req, res, processResult: resultOfMethod })
+    _addMissingRespond(res, resultOfMethod)
   }
 }
 
@@ -73,6 +90,7 @@ function resolver (route, dispatcher) {
 
   if (typeof route.middlewares === 'undefined' || route.middlewares.length === 0) {
     return (req, res) => {
+      dispatcher.cherry.hookManager.resolve(HOOK_BEFORE_PROCESS, { req, res, middlewares: [] })
       _resolve(method, req, res, dispatcher.cherry)
     }
   } else {
@@ -89,6 +107,7 @@ function resolver (route, dispatcher) {
     }
 
     return (req, res) => {
+      dispatcher.cherry.hookManager.resolve(HOOK_BEFORE_PROCESS, { req, res, middlewares })
       middlewares[0].resolve(req, res)
     }
   }
