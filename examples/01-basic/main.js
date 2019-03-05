@@ -1,4 +1,4 @@
-const fs = require('fs')
+// const fs = require('fs')
 const path = require('path')
 const routes = require('./routes')
 const middlewares = require('./middlewares')
@@ -20,5 +20,5 @@ const options = {
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, middlewares, options)
+cherry.configure(routes, middlewares, [], options)
 cherry.start(options)
