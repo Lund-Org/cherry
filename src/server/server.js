@@ -70,6 +70,7 @@ class Server {
       this.handleRequest(this.dispatcher, req, res)
     }
 
+    // attach the databaseengine and the viewengine
     if (check.isDefinedAndValid(options, 'httpPort')) {
       servers.http = httpModule.createServer(initializeServer)
     }
