@@ -1,4 +1,4 @@
-// const fs = require('fs')
+const fs = require('fs')
 const path = require('path')
 const routes = require('./routes')
 const middlewares = require('./middlewares')
@@ -10,12 +10,19 @@ const options = {
     res.writeHead(404)
     res.end('An error occured')
   },
-  httpPort: 4001,
-  // httpsPort: 4002,
-  // httpsKeys: {
-  //   key: fs.readFileSync(path.join(__dirname, '../../config/key.pem')),
-  //   cert: fs.readFileSync(path.join(__dirname, '../../config/cert.pem'))
-  // },
+  servers: [
+    {
+      port: 4001
+    },
+    {
+      port: 4002,
+      https: true,
+      httpsOptions: {
+        key: fs.readFileSync(path.join(__dirname, '../../config/key.pem')),
+        cert: fs.readFileSync(path.join(__dirname, '../../config/cert.pem'))
+      }
+    }
+  ],
   publicFolder: path.join(__dirname, './public/')
 }
 
