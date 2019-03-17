@@ -56,6 +56,13 @@ class ORMManager {
       }
     }
   }
+
+  /**
+   * Retrieve the connection of the orm
+   */
+  getConnection () {
+    return this.plugin.getConnection()
+  }
 }
 
 module.exports = ORMManager

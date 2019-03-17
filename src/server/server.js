@@ -66,6 +66,7 @@ class Server {
       for (let responseBuiltinName in responseBuiltins) {
         res[responseBuiltinName] = responseBuiltins[responseBuiltinName].bind(res)
       }
+      req.cherry = this.dispatcher.cherry
       res.cherry = this.dispatcher.cherry
       this.handleRequest(this.dispatcher, req, res)
     }

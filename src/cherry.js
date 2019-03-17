@@ -1,7 +1,7 @@
 const Server = require('./server/server')
 const Dispatcher = require('./server/Dispatcher')
 const HookManager = require('./hooks/HookManager')
-const ORMManager = require('./hooks/ORMManager')
+const ORMManager = require('./orm/ORMManager')
 const Route = require('./routes/Route')
 const check = require('./helpers/check')
 const { HOOK_BEFORE_START_SERVER, HOOK_AFTER_START_SERVER } = require('./hooks/constants')
