@@ -29,7 +29,7 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 - [x] [Response management, including view (default), download and json (a builtin helper)](https://github.com/Lund-Org/cherry/issues/1)
 - [x] [Templating management (a base for the plugins)](https://github.com/Lund-Org/cherry/issues/2)
 - [ ] [Debug mode (logger)](https://github.com/Lund-Org/cherry/issues/3)
-- [ ] [ORM integration](https://github.com/Lund-Org/cherry/issues/4)
+- [x] [ORM integration](https://github.com/Lund-Org/cherry/issues/4)
 - [ ] [Builtin helpers](https://github.com/Lund-Org/cherry/issues/5)
 - [x] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
 - [ ] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
