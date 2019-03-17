@@ -1,6 +1,7 @@
 const Server = require('./server/server')
 const Dispatcher = require('./server/Dispatcher')
 const HookManager = require('./hooks/HookManager')
+const ORMManager = require('./orm/ORMManager')
 const Route = require('./routes/Route')
 const check = require('./helpers/check')
 const { HOOK_BEFORE_START_SERVER, HOOK_AFTER_START_SERVER } = require('./hooks/constants')
@@ -12,9 +13,11 @@ class Cherry {
     this.https = null
     this.server = new Server(this.dispatcher)
     this.plugins = {
-      ViewEngine: null
+      ViewEngine: null,
+      DatabaseEngine: null
     }
     this.hookManager = new HookManager()
+    this.ormManager = new ORMManager()
   }
 
   configure (routes, middlewares, hooks, options = {}) {
@@ -38,6 +41,11 @@ class Cherry {
       this.hookManager.addHook(hook)
     })
     this.hookManager.sortByPriorities()
+
+    if (this.plugins.DatabaseEngine && typeof options.database !== 'undefined') {
+      this.ormManager.setPlugin(this.plugins.DatabaseEngine)
+      this.ormManager.checkOptions(options.database)
+    }
 
     // configure the middlewares
     middlewares.forEach((middleware) => {
@@ -75,6 +83,7 @@ class Cherry {
         server: this.https
       })
     }
+    this.ormManager.connectDatabase()
   }
 
   registerPlugin (plugin) {
