@@ -26,7 +26,7 @@ function _resolve (callback, req, res, cherryInstance) {
 
   if (Promise.resolve(resultOfMethod) === resultOfMethod) {
     resultOfMethod.then((asyncResult) => {
-      cherryInstance.hookManager.resolve(HOOK_AFTER_PROCESS, { req, res, processResult: asyncResult })
+      cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, { req, res, processResult: asyncResult })
       _addMissingRespond(res, asyncResult)
     }).catch((e) => {
       // @todo use the onError method
@@ -35,7 +35,7 @@ function _resolve (callback, req, res, cherryInstance) {
       res.end(JSON.stringify(e))
     })
   } else {
-    cherryInstance.hookManager.resolve(HOOK_AFTER_PROCESS, { req, res, processResult: resultOfMethod })
+    cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, { req, res, processResult: resultOfMethod })
     _addMissingRespond(res, resultOfMethod)
   }
 }
@@ -90,7 +90,7 @@ function resolver (route, dispatcher) {
 
   if (typeof route.middlewares === 'undefined' || route.middlewares.length === 0) {
     return (req, res) => {
-      dispatcher.cherry.hookManager.resolve(HOOK_BEFORE_PROCESS, { req, res, middlewares: [] })
+      dispatcher.cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { req, res, middlewares: [] })
       _resolve(method, req, res, dispatcher.cherry)
     }
   } else {
@@ -107,7 +107,7 @@ function resolver (route, dispatcher) {
     }
 
     return (req, res) => {
-      dispatcher.cherry.hookManager.resolve(HOOK_BEFORE_PROCESS, { req, res, middlewares })
+      dispatcher.cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { req, res, middlewares })
       middlewares[0].resolve(req, res)
     }
   }

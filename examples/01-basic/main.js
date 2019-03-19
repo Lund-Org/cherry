@@ -27,5 +27,5 @@ const options = {
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, middlewares, [], options)
+cherry.configure(routes, middlewares, options)
 cherry.start(options)

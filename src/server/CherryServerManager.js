@@ -38,12 +38,12 @@ class CherryServerManager {
    */
   startServers () {
     this.servers.forEach((server) => {
-      this.cherry.hookManager.resolve(HOOK_BEFORE_START_SERVER, {
+      this.cherry.hookConfigurator.trigger(HOOK_BEFORE_START_SERVER, {
         cherry: this.cherry,
         server: server
       })
       server.start()
-      this.cherry.hookManager.resolve(HOOK_AFTER_START_SERVER, {
+      this.cherry.hookConfigurator.trigger(HOOK_AFTER_START_SERVER, {
         cherry: this.cherry,
         server: server
       })

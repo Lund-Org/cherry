@@ -3,7 +3,7 @@ const routes = require('./routes')
 const Cherry = require('../../src/cherry')
 const CherryTypeormConnector = require('@lund-org/cherry-typeorm-connector')
 const Schemas = require('./typeorm/entities')
-// const CherrySequelizeConnector = require('@lund-org/cherry-sequelize-connector')
+const CherrySequelizeConnector = require('@lund-org/cherry-sequelize-connector')
 // const SequelizeEntities = require('./sequelize/entities')
 
 const typeormConfig = {
@@ -39,13 +39,16 @@ const options = {
     res.writeHead(404)
     res.end('An error occured')
   },
-  httpPort: 4005,
+  servers: [
+    {
+      port: 4005
+    }
+  ],
+  plugins: [ CherrySequelizeConnector, CherryTypeormConnector ],
   database: typeormConfig
   // database: sequelizeConfig
 }
 
 const cherry = new Cherry()
-cherry.registerPlugin(CherryTypeormConnector)
-// cherry.registerPlugin(CherrySequelizeConnector)
-cherry.configure(routes, [], [], options)
+cherry.configure(routes, [], options)
 cherry.start(options)

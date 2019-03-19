@@ -45,7 +45,7 @@ module.exports = [
   {
     method: ['GET'],
     path: '/html-raw',
-    callback: (req, res) => {
+    callback: async (req, res) => {
       return res.html(
         '<div style="background: red; width: 500px; height: 500px;"></div>',
         { isRaw: true }
@@ -56,7 +56,7 @@ module.exports = [
     method: ['GET'],
     name: 'html-from-file',
     path: '/html-file',
-    callback: (req, res) => {
+    callback: async (req, res) => {
       return res.html(
         path.join(__dirname, '/my-handlebar-view.html'),
         {
@@ -73,7 +73,7 @@ module.exports = [
     method: ['GET'],
     name: 'html-from-pug-file',
     path: '/html-pug-file',
-    callback: (req, res) => {
+    callback: async (req, res) => {
       // If you want to test this route, update the main.js to load the right view engine.
       // Handlebars is used by default.
       return res.html(
