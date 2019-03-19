@@ -30,7 +30,7 @@ class HookConfigurator extends Configurator {
         })
         this.manager.bindEventEmitter(this.eventEmitter)
       } else {
-        throw new ConfiguratorException('hooks', typeof options.hook, 'Array')
+        throw new ConfiguratorException('hooks', typeof options.hooks, 'Array')
       }
     }
   }

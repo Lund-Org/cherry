@@ -1,7 +1,14 @@
 module.exports = [
   {
     method: ['GET'],
-    path: '/',
+    path: '/test-without-middlewares',
+    callback: (req, res) => {
+      res.end('<div>Seems ok</div>')
+    }
+  },
+  {
+    method: ['GET'],
+    path: '/test-with-middlewares',
     callback: (req, res) => {
       console.log('body :', req.body)
       console.log('route param :', req.routeParameters)
@@ -9,7 +16,7 @@ module.exports = [
       res.writeHead(200, { 'Content-Type': 'text/html' })
       res.end('<div>ROOT page</div>')
     },
-    middlewares: [ 'midOne', 'midThree' ]
+    middlewares: ['midOne', 'midThree']
   },
   {
     method: ['POST'],

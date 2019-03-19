@@ -23,9 +23,10 @@ const options = {
       }
     }
   ],
-  publicFolder: path.join(__dirname, './public/')
+  publicFolder: path.join(__dirname, './public/'),
+  middlewares
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, middlewares, options)
+cherry.configure(routes, options)
 cherry.start(options)

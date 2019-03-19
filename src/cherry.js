@@ -1,6 +1,7 @@
 const Dispatcher = require('./server/Dispatcher')
 const PluginConfigurator = require('./configuration/PluginConfigurator')
 const HookConfigurator = require('./configuration/HookConfigurator')
+const MiddlewareConfigurator = require('./configuration/MiddlewareConfigurator')
 const ORMManager = require('./orm/ORMManager')
 const CherryServerManager = require('./server/CherryServerManager')
 const Route = require('./routes/Route')
@@ -12,12 +13,13 @@ class Cherry {
 
     this.pluginConfigurator = new PluginConfigurator()
     this.hookConfigurator = new HookConfigurator()
+    this.middlewareConfigurator = new MiddlewareConfigurator()
 
     this.ormManager = new ORMManager()
     this.cherryServerManager = new CherryServerManager(this)
   }
 
-  configure (routes, middlewares, options = {}) {
+  configure (routes, options = {}) {
     // caca
     if (check.isDefined(options, 'onError')) {
       this.dispatcher.onError(options.onError)
@@ -25,6 +27,7 @@ class Cherry {
 
     this.pluginConfigurator.configure(options)
     this.hookConfigurator.configure(options)
+    this.middlewareConfigurator.configure(options)
 
     // configure the routes
     routes.forEach((route) => {
@@ -39,11 +42,6 @@ class Cherry {
       this.ormManager.setPlugin(this.pluginConfigurator.getPlugin('DatabaseEngine'))
       this.ormManager.checkOptions(options.database)
     }
-
-    // configure the middlewares
-    middlewares.forEach((middleware) => {
-      this.dispatcher.addMiddleware(middleware)
-    })
 
     this.dispatcher.setPublicFolder(options.publicFolder)
     this.cherryServerManager.buildServers(options)

@@ -57,14 +57,6 @@ class Dispatcher {
   }
 
   /**
-   * Allows to add a middleware in the list of available middlewares
-   * @param {Middleware} middleware A middleware to add
-   */
-  addMiddleware (middlewareData) {
-    this.middlewares[middlewareData.name] = middlewareData.callback
-  }
-
-  /**
    * Set the error callback if something goes wrong
    * @param {Object} request The current request
    * @param {Object} response The response object

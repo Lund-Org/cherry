@@ -50,5 +50,5 @@ const options = {
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, [], options)
+cherry.configure(routes, options)
 cherry.start(options)

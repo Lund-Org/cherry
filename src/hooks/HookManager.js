@@ -9,7 +9,10 @@ class HookManager {
   }
 
   /**
-   * Sort the hooks by priorities
+   * Set the option which allows or not the duplication
+   * If true, it only warns
+   * If false, it throws
+   * @param {boolean} value The option value
    */
   setDuplicateHookOption (value) {
     this.allowDuplicatedHooks = value
@@ -18,10 +21,10 @@ class HookManager {
   /**
    * Add a hook to the list of hook order by type
    */
-  addHook (hook) {
-    let _hook = hook
-    if (!(hook instanceof Hook)) {
-      _hook = new Hook(hook)
+  addHook (newHook) {
+    let _hook = newHook
+    if (!(newHook instanceof Hook)) {
+      _hook = new Hook(newHook)
     }
     if (!check.isDefined(this.hooks, _hook.getType())) {
       this.hooks[_hook.getType()] = []
@@ -71,7 +74,9 @@ class HookManager {
   }
 
   /**
-   * Sort the hooks by priorities
+   * Warn or throw an exception because of a duplicate hook
+   * @param {Hook} oldHook The hook previously registered
+   * @param {Hook} newHook The new hook which is duplicated
    */
   _manageDuplicateHook (oldHook, newHook) {
     if (this.allowDuplicatedHooks) {

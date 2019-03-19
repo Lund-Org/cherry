@@ -1,5 +1,3 @@
-const Middleware = require('../middlewares/Middleware')
-const MiddlewareError = require('../middlewares/MiddlewareException')
 const { HOOK_BEFORE_PROCESS, HOOK_AFTER_PROCESS } = require('../hooks/constants')
 
 function _addMissingRespond (res, resultValue) {
@@ -41,74 +39,27 @@ function _resolve (callback, req, res, cherryInstance) {
 }
 
 /**
- * Get the right middlewares and link them
- * @param {Function} method The controller method to call. Can be async of not
- * @param {Array} registeredMiddleware All the middlewares registered
- * @param {Array} routeMiddlewares The middleware(s) to check. Can be an Array or a string
- * @param {Cherry} cherryInstance The cherry instance
- * @return {Array}
- */
-function _getMiddlewares (method, registeredMiddleware, routeMiddlewares, cherryInstance) {
-  let middlewaresInstanceList = []
-  // Simulation for the last middleware
-  let previousMiddleware = {
-    resolve: (req, res) => {
-      _resolve(method, req, res, cherryInstance)
-    }
-  }
-
-  if (Array.isArray(routeMiddlewares)) {
-    for (let i = routeMiddlewares.length - 1; i >= 0; --i) {
-      let middleware = routeMiddlewares[i]
-      if (typeof registeredMiddleware[middleware] !== 'undefined') {
-        let MiddlewareInstance = new Middleware(previousMiddleware, registeredMiddleware[middleware])
-        middlewaresInstanceList.unshift(MiddlewareInstance)
-        previousMiddleware = MiddlewareInstance
-      } else {
-        throw new MiddlewareError(middleware)
-      }
-    }
-  } else if (typeof routeMiddlewares === 'string') {
-    if (typeof registeredMiddleware[routeMiddlewares] !== 'undefined') {
-      middlewaresInstanceList.push(new Middleware(previousMiddleware, registeredMiddleware[routeMiddlewares]))
-    } else {
-      throw new MiddlewareError(routeMiddlewares)
-    }
-  }
-
-  return middlewaresInstanceList
-}
-
-/**
  * Resolve a route by calling the linked method, after processing its possible middlewares
  * @param {Route} route The route informations
  * @param {Dispatcher} dispatcher The dispatcher object
  * @return {Function}
  */
 function resolver (route, dispatcher) {
-  let method = route.callback
+  let method = (req, res) => {
+    return _resolve(route.callback, req, res, dispatcher.cherry)
+  }
 
   if (typeof route.middlewares === 'undefined' || route.middlewares.length === 0) {
     return (req, res) => {
       dispatcher.cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { req, res, middlewares: [] })
-      _resolve(method, req, res, dispatcher.cherry)
+      return method(req, res)
     }
   } else {
-    let middlewares = []
-
-    try {
-      middlewares = _getMiddlewares(method, dispatcher.middlewares, route.middlewares, dispatcher.cherry)
-    } catch (middlewareException) {
-      // @todo : Need to use the onError callback configured
-      return (req, res) => {
-        res.writeHead(500, { 'Content-Type': 'application/json' })
-        res.end(JSON.stringify({ message: middlewareException.message }))
-      }
-    }
+    const middlewareChain = dispatcher.cherry.middlewareConfigurator.buildMiddlewareChain(route.middlewares, { resolve: method })
 
     return (req, res) => {
-      dispatcher.cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { req, res, middlewares })
-      middlewares[0].resolve(req, res)
+      dispatcher.cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { req, res, middlewareChain })
+      middlewareChain.resolve(req, res)
     }
   }
 }
