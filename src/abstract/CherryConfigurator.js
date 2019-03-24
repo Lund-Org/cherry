@@ -1,7 +1,7 @@
 /**
  * The abstraction of the Configuration classes
  */
-class Configurator {
+class CherryConfigurator {
   constructor (manager) {
     this.manager = manager
   }
@@ -12,4 +12,4 @@ class Configurator {
   configure () {}
 }
 
-module.exports = Configurator
+module.exports = CherryConfigurator
