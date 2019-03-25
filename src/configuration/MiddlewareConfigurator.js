@@ -1,7 +1,6 @@
 const CherryConfigurator = require('../abstract/CherryConfigurator')
 const MiddlewareManager = require('../middlewares/MiddlewareManager')
 const MiddlewareWrapper = require('../middlewares/MiddlewareWrapper')
-const ConfiguratorException = require('./ConfiguratorException')
 const check = require('../helpers/check')
 
 class MiddlewareConfigurator extends CherryConfigurator {
@@ -17,15 +16,7 @@ class MiddlewareConfigurator extends CherryConfigurator {
     if (check.isDefined(options, 'allowDuplicatedMiddlewares')) {
       this.manager.setDuplicateHookOption(!!options.allowDuplicatedMiddlewares)
     }
-    if (check.isDefined(options, 'middlewares')) {
-      if (Array.isArray(options.middlewares)) {
-        options.middlewares.forEach((middleware) => {
-          this.manager.addMiddleware(middleware)
-        })
-      } else {
-        throw new ConfiguratorException('middlewares', typeof options.middlewares, 'Array')
-      }
-    }
+    super.configure(options, 'middlewares', 'addMiddleware', 'Array')
   }
 
   /**

@@ -1,3 +1,4 @@
+const CherryError = require('../abstract/CherryError')
 const check = require('../helpers/check')
 const CherryHTTPServer = require('./CherryHTTPServer')
 const CherryHTTPSServer = require('./CherryHTTPSServer')
@@ -29,7 +30,7 @@ class CherryServerManager {
         return server
       })
     } else {
-      throw new Error('The \'servers\' key is missing in the configuration datas')
+      throw new CherryError('The \'servers\' key is missing in the configuration datas')
     }
   }
 

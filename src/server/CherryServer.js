@@ -53,9 +53,6 @@ class CherryServer {
       try {
         this.cherry.dispatcher.dispatch(request, response)
       } catch (error) {
-        console.log('DISPATCH CATCH')
-        console.log(error)
-        console.log('====================================')
         if (this.errorCallback) {
           this.errorCallback(request, response, error)
         } else {

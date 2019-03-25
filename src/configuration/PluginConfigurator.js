@@ -1,7 +1,5 @@
 const CherryConfigurator = require('../abstract/CherryConfigurator')
 const PluginManager = require('../plugins/PluginManager')
-const ConfiguratorException = require('./ConfiguratorException')
-const check = require('../helpers/check')
 
 /**
  * The configurator of the plugins
@@ -17,15 +15,7 @@ class PluginConfigurator extends CherryConfigurator {
    * @param {Object} options The options set to the cherry instance
    */
   configure (options) {
-    if (check.isDefined(options, 'plugins')) {
-      if (Array.isArray(options.plugins)) {
-        options.plugins.forEach((plugin) => {
-          this.manager.registerPlugin(plugin)
-        })
-      } else {
-        throw new ConfiguratorException('plugins', typeof options.plugins, 'Array')
-      }
-    }
+    super.configure(options, 'plugins', 'registerPlugin', 'Array')
   }
 
   /**

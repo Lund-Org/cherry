@@ -1,4 +1,5 @@
 const check = require('../helpers/check')
+const CherryError = require('../abstract/CherryError')
 
 const DEFAULT_PORT = 3000
 
@@ -31,7 +32,7 @@ class CherryServerConfigurator {
         port = parseInt(port)
       }
       if (typeof port === 'number' && (port < 0 || !Number.isInteger(port))) {
-        throw new Error(`The port '${port}' is invalid`)
+        throw new CherryError(`The port '${port}' is invalid`)
       }
 
       return port

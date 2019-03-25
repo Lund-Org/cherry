@@ -32,7 +32,8 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 - [x] [ORM integration](https://github.com/Lund-Org/cherry/issues/4)
 - [ ] [Builtin helpers](https://github.com/Lund-Org/cherry/issues/5)
 - [x] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
-- [ ] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
+- [x] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
+- [x] [Enhancement of the route format](https://github.com/Lund-Org/cherry/issues/12)
 - [ ] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
 
 ## :open_file_folder: Resources
