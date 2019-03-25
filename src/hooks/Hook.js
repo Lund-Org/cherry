@@ -3,13 +3,13 @@ const HookException = require('./HookException')
 
 class Hook {
   constructor (hook) {
-    if (!check.isDefined(hook, 'name') && typeof hook.name === 'string') {
+    if (!check.isDefined(hook, 'name') || typeof hook.name !== 'string') {
       throw new HookException('name')
     }
-    if (!check.isDefined(hook, 'method') && typeof hook.method === 'function') {
+    if (!check.isDefined(hook, 'method') || typeof hook.method !== 'function') {
       throw new HookException('method')
     }
-    if (!check.isDefined(hook, 'type') && typeof hook.type === 'string') {
+    if (!check.isDefined(hook, 'type') || typeof hook.type !== 'string') {
       throw new HookException('type')
     }
     if (check.isDefined(hook, 'priority')) {
