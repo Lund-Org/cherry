@@ -13,6 +13,14 @@ class CherryIncomingMessage extends IncomingMessage {
   setCherry (cherry) {
     this.cherry = cherry
   }
+
+  /**
+   * Get the cherry instance bound to the request
+   * @return {Cherry} The cherry instance
+   */
+  getCherry () {
+    return this.cherry
+  }
 }
 
 module.exports = CherryIncomingMessage

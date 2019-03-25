@@ -11,7 +11,7 @@ const RouteManager = require('../RouteManager')
  */
 class ContextRouter extends CherryRouter {
   /**
-   * Create the route. The mandatory fields are :
+   * Create the context for somes other routes. The mandatory fields are :
    * - type
    * - collection
    * The optionnal ones are :

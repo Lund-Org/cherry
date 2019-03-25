@@ -10,6 +10,13 @@ const RouteMatchResponse = require('../RouteMatchResponse')
  * The router which manages the ressources in a folder
  */
 class PublicFolderRouter extends CherryRouter {
+  /**
+   * Create the public route to search assets. The mandatory fields are :
+   * - path
+   * The optionnal ones are :
+   * - priority
+   * @param {Object} routeConfig The options of the route
+   */
   constructor (routeConfig) {
     super(routeConfig, PublicFolderRouter)
 
@@ -22,6 +29,7 @@ class PublicFolderRouter extends CherryRouter {
     // Check the read permission and the existence
     fs.accessSync(routeConfig.path, fs.constants.R_OK)
     this.path = routeConfig.path
+    this._setParameters(routeConfig, 'priority', 0)
   }
 
   /**
@@ -46,16 +54,13 @@ class PublicFolderRouter extends CherryRouter {
 
     try {
       const filePath = path.join(this.path, require('url').parse(route, true).pathname)
-      const stat = fs.statSync(filePath)
 
-      response.writeHead(200, {
-        'Content-Length': stat.size
-      })
-
-      const readStream = fs.createReadStream(filePath)
-      readStream.pipe(response)
-      routeMatchResponse.setMatch(true)
-      routeMatchResponse.setStop(true)
+      if (fs.statSync(filePath)) {
+        const readStream = fs.createReadStream(filePath)
+        readStream.pipe(response)
+        routeMatchResponse.setMatchingRoute(this)
+        routeMatchResponse.setStop(true)
+      }
     } catch (e) {
       // Not found in the public folder
     }

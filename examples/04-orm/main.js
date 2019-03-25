@@ -45,10 +45,11 @@ const options = {
     }
   ],
   plugins: [ CherrySequelizeConnector, CherryTypeormConnector ],
+  routes,
   database: typeormConfig
   // database: sequelizeConfig
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, options)
+cherry.configure(options)
 cherry.start(options)

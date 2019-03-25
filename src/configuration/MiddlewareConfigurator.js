@@ -1,10 +1,10 @@
-const Configurator = require('../abstract/Configurator')
+const CherryConfigurator = require('../abstract/CherryConfigurator')
 const MiddlewareManager = require('../middlewares/MiddlewareManager')
 const MiddlewareWrapper = require('../middlewares/MiddlewareWrapper')
 const ConfiguratorException = require('./ConfiguratorException')
 const check = require('../helpers/check')
 
-class MiddlewareConfigurator extends Configurator {
+class MiddlewareConfigurator extends CherryConfigurator {
   constructor () {
     super(new MiddlewareManager())
   }

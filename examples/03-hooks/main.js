@@ -13,9 +13,10 @@ const options = {
       port: 4004
     }
   ],
-  hooks
+  hooks,
+  routes
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, options)
+cherry.configure(options)
 cherry.start(options)

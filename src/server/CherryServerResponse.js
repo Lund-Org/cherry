@@ -29,6 +29,22 @@ class CherryServerResponse extends ServerResponse {
   setCherry (cherry) {
     this.cherry = cherry
   }
+
+  /**
+   * Add a response to shutdown the request if nothing has been set as response
+   * @param {mixed} resultValue The result value of the callback
+   */
+  addMissingRespond (resultValue) {
+    if (!this.finished) {
+      if (typeof resultValue === 'object') {
+        this.json(resultValue)
+      } else if (typeof resultValue === 'string') {
+        this.end(resultValue)
+      } else {
+        this.end(resultValue.toString())
+      }
+    }
+  }
 }
 
 module.exports = CherryServerResponse

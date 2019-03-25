@@ -3,6 +3,7 @@ const { ROUTE } = require('../constants')
 const CherryRouter = require('../../abstract/CherryRouter')
 const RouteException = require('../exceptions/RouteException')
 const RouteMatchResponse = require('../RouteMatchResponse')
+const merge = require('deepmerge')
 
 /**
  * The router which manages the route registered in the application
@@ -63,12 +64,12 @@ class RouteRouter extends CherryRouter {
           return carry
         }, {})
 
-        routeMatchResponse.setMatch(true)
+        routeMatchResponse.setMatchingRoute(this.clone())
         for (const attributeName in attributes) {
           if (check.isDefinedAndNotNull(this.rules, attributeName)) {
             if (attributes[attributeName].match(this.rules[attributeName]) === null) {
-              console.warn(`Parameter ${attributeName} doesn't match`)
-              routeMatchResponse.setMatch(false)
+              // console.warn(`Parameter ${attributeName} doesn't match`)
+              routeMatchResponse.setMatchingRoute(null)
               break
             }
           }
@@ -98,8 +99,16 @@ class RouteRouter extends CherryRouter {
     }
     this.path = (contextRouter.path + this.path).replace(/\/+/g, '/')
     this.middlewares = [...new Set([...contextRouter.middlewares, ...this.middlewares])]
-    this.rules = Object.assign({}, contextRouter.rules, this.rules)
+    this.rules = merge(contextRouter.rules, this.rules)
     this._manageRouteParameters()
+    this.basedRouteConfig = {
+      name: this.name,
+      path: this.path,
+      callback: this.callback,
+      method: this.method ? this.method.slice(0) : null,
+      rules: merge({}, this.rules),
+      middlewares: this.middlewares.slice(0)
+    }
   }
 
   /**
@@ -124,7 +133,7 @@ class RouteRouter extends CherryRouter {
         // We remove the ':'
         return routeAttribute.substr(1)
       })
-      this.routeRegex = new RegExp(`^${this.path.replace(/:[A-Za-z0-9_-]+/g, '(.+)')}$`)
+      this.routeRegex = new RegExp(`^${this.path.replace(/:[A-Za-z0-9_-]+/g, '([A-Za-z0-9_.\\-~]+)')}$`)
     } else {
       this.attributesMatches = []
       this.routeRegex = new RegExp(`^${this.path}$`)

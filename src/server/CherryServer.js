@@ -35,28 +35,31 @@ class CherryServer {
 
   /**
    * The handler when a request comes to the server
-   * @param {CherryIncomingMessage} req The current request
-   * @param {CherryServerResponse} res The response object
+   * @param {CherryIncomingMessage} request The current request
+   * @param {CherryServerResponse} response The response object
    */
-  bootstrap (req, res) {
+  bootstrap (request, response) {
     let shouldContinue = true
 
-    this.boundOptionsToRequest(req)
-    this.boundOptionsToResponse(res)
+    this.boundOptionsToRequest(request)
+    this.boundOptionsToResponse(response)
     if (this.options.optionCallback === null) {
-      shouldContinue = !this.defaultOptionsManagement(req, res)
+      shouldContinue = !this.defaultOptionsManagement(request, response)
     } else if (typeof this.options.optionCallback === 'function') {
       shouldContinue = !this.options.optionCallback()
     }
 
     if (shouldContinue) {
       try {
-        this.cherry.dispatcher.dispatch(req, res)
+        this.cherry.dispatcher.dispatch(request, response)
       } catch (error) {
+        console.log('DISPATCH CATCH')
+        console.log(error)
+        console.log('====================================')
         if (this.errorCallback) {
-          this.errorCallback(req, res, error)
+          this.errorCallback(request, response, error)
         } else {
-          this.defaultErrorManagement(res, error)
+          this.defaultErrorManagement(response, error)
         }
       }
     }

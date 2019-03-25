@@ -14,9 +14,10 @@ const options = {
       port: 4003
     }
   ],
-  plugins: [ CherryHandlebarsConnector, CherryPugConnector ]
+  plugins: [ CherryHandlebarsConnector, CherryPugConnector ],
+  routes
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, options)
+cherry.configure(options)
 cherry.start(options)

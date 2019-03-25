@@ -1,13 +1,13 @@
-const Configurator = require('../abstract/Configurator')
+const CherryConfigurator = require('../abstract/CherryConfigurator')
 const PluginManager = require('../plugins/PluginManager')
 const ConfiguratorException = require('./ConfiguratorException')
 const check = require('../helpers/check')
 
 /**
  * The configurator of the plugins
- * Inherits from the abstract Configurator
+ * Inherits from the abstract CherryConfigurator
  */
-class PluginConfigurator extends Configurator {
+class PluginConfigurator extends CherryConfigurator {
   constructor () {
     super(new PluginManager())
   }

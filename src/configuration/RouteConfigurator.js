@@ -1,4 +1,4 @@
-const Configurator = require('../abstract/CherryConfigurator')
+const CherryConfigurator = require('../abstract/CherryConfigurator')
 const ConfiguratorException = require('./ConfiguratorException')
 const RouteManager = require('../routes/RouteManager')
 const PublicRouteManager = require('../routes/PublicRouteManager')
@@ -6,7 +6,7 @@ const check = require('../helpers/check')
 const routers = require('../routes/routers')
 const EventEmitter = require('events').EventEmitter
 
-class RouteConfigurator extends Configurator {
+class RouteConfigurator extends CherryConfigurator {
   constructor () {
     super({
       routeManager: new RouteManager(routers),
@@ -22,8 +22,8 @@ class RouteConfigurator extends Configurator {
     if (check.isDefined(options, 'routes')) {
       let hasRoutes = false
 
-      hasRoutes = hasRoutes || this._configure(options.routes, 'router', 'routeManager')
-      hasRoutes = hasRoutes || this._configure(options.routes, 'publicRouter', 'publicRouter')
+      hasRoutes = this._configure(options.routes, 'router', 'routeManager') || hasRoutes
+      hasRoutes = this._configure(options.routes, 'publicRouter', 'publicRouteManager') || hasRoutes
 
       if (!hasRoutes) {
         throw new ConfiguratorException('routes', typeof options.routes, 'Object (with at least router or publicRouter not empty)')
@@ -32,19 +32,37 @@ class RouteConfigurator extends Configurator {
       throw new ConfiguratorException('routes', undefined, 'Object')
     }
 
-    this.manager.routeManager.getRoutes().forEach((route) => {
-      this.eventEmitter.on(route.name, (req, res) => {
-        // do things ????
-      })
-    })
+    this._configurePublicRoutes()
+    this._configureRoutes()
   }
 
   /**
    * Configure the configurator, this method should be implemented
+   * @param {string} route The route to analyze
+   * @param {CherryIncomingMessage} request The current request
+   * @param {CherryServerResponse} response The response object
+   * @return {RouteMatchResponse|null}
    */
-  getRoutes () {
-    console.log(this.manager.routeManager.getRoutes())
-    console.log(this.manager.publicRouteManager.getRoutes())
+  searchMatchingRoute (route, request, response) {
+    let routeResponse = null
+
+    routeResponse = this._searchMatchingRoute(
+      this.manager.publicRouteManager,
+      route,
+      request,
+      response
+    )
+
+    if (routeResponse) {
+      return routeResponse
+    } else {
+      return this._searchMatchingRoute(
+        this.manager.routeManager,
+        route,
+        request,
+        response
+      )
+    }
   }
 
   /**
@@ -69,6 +87,48 @@ class RouteConfigurator extends Configurator {
     }
 
     return hasRoutes
+  }
+
+  /**
+   * Configure the public routes
+   */
+  _configurePublicRoutes () {
+    this.manager.publicRouteManager.sortByPriorities()
+  }
+
+  /**
+   * Configure the configured routes
+   */
+  _configureRoutes () {
+    // this.manager.routeManager.getRoutes().forEach((route) => {
+    //   this.eventEmitter.on(route.name, (req, res) => {
+    //     // do things ????
+    //   })
+    // })
+  }
+
+  /**
+   * Search if a route match in a manager
+   * @param {CherryRouterManager} manager The route manager to use
+   * @param {string} route The route to analyze
+   * @param {CherryIncomingMessage} req The current request
+   * @param {CherryServerResponse} res The response object
+   * @return {RouteMatchResponse|null}
+   */
+  _searchMatchingRoute (manager, route, req, res) {
+    let routeResponse = null
+
+    manager.getRoutes().some((publicRoute) => {
+      let tmp = publicRoute.matchRoute(route, req, res)
+
+      if (tmp.getMatchingRoute()) {
+        routeResponse = tmp
+        return true
+      }
+      return false
+    })
+
+    return routeResponse
   }
 }
 

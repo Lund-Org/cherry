@@ -1,4 +1,5 @@
 const check = require('../helpers/check')
+const merge = require('deepmerge')
 
 /**
  * The abstraction of the Router classes
@@ -31,7 +32,7 @@ class CherryRouter {
   clone () {
     const ClassToClone = this.instanceClass
 
-    return new ClassToClone(this.basedRouteConfig)
+    return new ClassToClone(merge({}, this.basedRouteConfig))
   }
 
   /**

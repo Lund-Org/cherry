@@ -1,4 +1,4 @@
-const Configurator = require('../abstract/Configurator')
+const CherryConfigurator = require('../abstract/CherryConfigurator')
 const EventEmitter = require('events').EventEmitter
 const HookManager = require('../hooks/HookManager')
 const ConfiguratorException = require('./ConfiguratorException')
@@ -6,9 +6,9 @@ const check = require('../helpers/check')
 
 /**
  * The configurator of the hooks
- * Inherits from the abstract Configurator
+ * Inherits from the abstract CherryConfigurator
  */
-class HookConfigurator extends Configurator {
+class HookConfigurator extends CherryConfigurator {
   constructor () {
     super(new HookManager())
 

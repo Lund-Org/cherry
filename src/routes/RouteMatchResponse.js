@@ -1,24 +1,24 @@
 class RouteMatchResponse {
   constructor () {
-    this.match = false
+    this.matchingRoute = null
     this.attributes = {}
     this.stop = false
   }
 
   /**
-   * Retrieves if the route match or not
-   * @return {boolean} The status of the match
+   * Retrieves the matching route
+   * @return {CherryRouter} The matching route object
    */
-  isMatching () {
-    return this.match
+  getMatchingRoute () {
+    return this.matchingRoute
   }
 
   /**
-   * Retrieves if the route match or not
-   * @param {boolean} match The status of the match
+   * Set the matching route
+   * @param {CherryRouter} matchingRoute The route which matches with the request
    */
-  setMatch (match) {
-    this.match = match
+  setMatchingRoute (matchingRoute) {
+    this.matchingRoute = matchingRoute
   }
 
   /**
