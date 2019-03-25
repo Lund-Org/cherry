@@ -5,7 +5,6 @@ const MiddlewareConfigurator = require('./configuration/MiddlewareConfigurator')
 const RouteConfigurator = require('./configuration/RouteConfigurator')
 const ORMManager = require('./orm/ORMManager')
 const CherryServerManager = require('./server/CherryServerManager')
-const check = require('./helpers/check')
 
 class Cherry {
   constructor () {
