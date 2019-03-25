@@ -8,9 +8,15 @@ const options = {
     res.writeHead(404)
     res.end('An error occured')
   },
-  httpPort: 4004
+  servers: [
+    {
+      port: 4004
+    }
+  ],
+  hooks,
+  routes
 }
 
 const cherry = new Cherry()
-cherry.configure(routes, [], hooks, options)
+cherry.configure(options)
 cherry.start(options)

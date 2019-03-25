@@ -1,20 +1,38 @@
+const check = require('../helpers/check')
+const MiddlewareBadConfigurationException = require('./MiddlewareBadConfigurationException')
+
 /**
- * The middleware class allows to chain the middleware calls and passing the next one.
- * It's just a wrapper of the existing middlewares in this folder.
+ * The registered middlewares which will be used in the MiddlewareWrapper
  */
 class Middleware {
-  constructor (next, process) {
-    this.next = next
-    this.process = process
+  constructor (middlewareOptions) {
+    if (!check.isDefined(middlewareOptions, 'name')) {
+      throw new MiddlewareBadConfigurationException(undefined)
+    } else {
+      this.name = middlewareOptions.name
+    }
+
+    if (!check.isDefined(middlewareOptions, 'callback') || typeof middlewareOptions['callback'] !== 'function') {
+      throw new MiddlewareBadConfigurationException(this.name, 'callback', 'function')
+    }
+    this.process = middlewareOptions.callback
+  }
+
+  /**
+   * Retrieves the name of the middleware
+   */
+  getName () {
+    return this.name
   }
 
   /**
    * Call the right method and provide the next middleware (or the endpoint) to call
-   * @param {Object} req The current request
-   * @param {Object} res The object to send response
+   * @param {Function} next The next action to do
+   * @param {CherryIncomingMessage} req The current request
+   * @param {CherryServerResponse} res The object to send response
    */
-  resolve (req, res) {
-    this.process(this.next, req, res)
+  resolve (next, req, res) {
+    this.process(next, req, res)
   }
 }
 

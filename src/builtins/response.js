@@ -101,7 +101,11 @@ async function html (str, refOptions = null) {
   let htmlContent = null
   let viewEngine = null
 
-  if (!check.isDefinedAndNotNull(this.cherry.plugins, 'ViewEngine')) {
+  if (this.cherry.pluginConfigurator.getPlugin('ViewEngine')) {
+    viewEngine = this.cherry.pluginConfigurator.getPluginInstance('ViewEngine', options)
+  }
+
+  if (!viewEngine) {
     viewEngine = {
       loadTemplate: async (path) => {
         htmlContent = await fs.readFile(path)
@@ -112,9 +116,8 @@ async function html (str, refOptions = null) {
       bindTemplate: () => true,
       getRenderedHtml: () => htmlContent
     }
-  } else {
-    viewEngine = new this.cherry.plugins.ViewEngine(options)
   }
+
   if (!options.isRaw) {
     await viewEngine.loadTemplate(str)
   } else {
