@@ -14,7 +14,7 @@ class MiddlewareConfigurator extends CherryConfigurator {
    */
   configure (options) {
     if (check.isDefined(options, 'allowDuplicatedMiddlewares')) {
-      this.manager.setDuplicateHookOption(!!options.allowDuplicatedMiddlewares)
+      this.manager.setDuplicateMiddlewareOption(!!options.allowDuplicatedMiddlewares)
     }
     super.configure(options, 'middlewares', 'addMiddleware', 'Array')
   }

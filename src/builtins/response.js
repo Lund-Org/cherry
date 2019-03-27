@@ -145,8 +145,23 @@ function json (ref, refOptions = null) {
   response.call(this, options.statusCode, options.headers, content)
 }
 
-module.exports = {
+module.exports = exports = {
   download,
   html,
   json
 }
+
+Object.defineProperties(exports, {
+  response: {
+    value: response
+  },
+  defaultDownloadOptions: {
+    value: defaultDownloadOptions
+  },
+  defaultHTMLOptions: {
+    value: defaultHTMLOptions
+  },
+  defaultJSONOptions: {
+    value: defaultJSONOptions
+  }
+})

@@ -15,10 +15,14 @@ class Cherry {
     this.middlewareConfigurator = new MiddlewareConfigurator()
     this.routeConfigurator = new RouteConfigurator()
 
-    this.ormManager = new ORMManager()
+    this.ormManager = new ORMManager(this)
     this.cherryServerManager = new CherryServerManager(this)
   }
 
+  /**
+   * Configure the entire framework instance
+   * @param {Object} options The options to configure Cherry
+   */
   configure (options = {}) {
     // caca
     // if (check.isDefined(options, 'onError')) {
@@ -38,9 +42,20 @@ class Cherry {
     this.cherryServerManager.buildServers(options)
   }
 
-  start () {
-    this.cherryServerManager.startServers()
-    this.ormManager.connectDatabase()
+  /**
+   * Start the server(s) and connect to database(s) if configured to
+   */
+  async start () {
+    await this.cherryServerManager.startServers()
+    await this.ormManager.connectDatabase()
+  }
+
+  /**
+   * Start the server(s) and disconnect from database(s)
+   */
+  async stop () {
+    await this.ormManager.disconnectDatabase()
+    await this.cherryServerManager.stopServers()
   }
 }
 

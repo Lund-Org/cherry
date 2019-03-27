@@ -1,0 +1,17 @@
+{
+  "check-coverage": true,
+  "per-file": true,
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "test/**/*.spec.js"
+  ],
+  "reporter": [
+    "lcov",
+    "text",
+    "html"
+  ],
+  "cache": true,
+  "all": true
+}

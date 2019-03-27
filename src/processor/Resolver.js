@@ -26,7 +26,7 @@ class Resolver {
         }
       )
 
-      cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { request, response, middlewareChain })
+      cherry.hookConfigurator.trigger(HOOK_BEFORE_PROCESS, { request, response, middlewares: middlewareChain })
       return middlewareChain.resolve(request, response)
     }
   }

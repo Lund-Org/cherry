@@ -21,7 +21,7 @@ module.exports = {
    * @return {boolean}
    */
   isSelfDefinedAndValid: (value) => {
-    return (typeof value !== 'undefined' && value)
+    return (typeof value !== 'undefined' && !!value)
   },
   /**
    * Check if a key is defined in an object
@@ -30,7 +30,7 @@ module.exports = {
    * @return {boolean}
    */
   isDefined: (obj, key) => {
-    return typeof obj[key] !== 'undefined'
+    return (typeof obj !== 'undefined' && typeof obj[key] !== 'undefined')
   },
   /**
    * Check if a key is defined in an object and if the value is not null
@@ -39,7 +39,7 @@ module.exports = {
    * @return {boolean}
    */
   isDefinedAndNotNull: (obj, key) => {
-    return (typeof obj[key] !== 'undefined' && obj[key] !== null)
+    return (typeof obj !== 'undefined' && typeof obj[key] !== 'undefined' && obj[key] !== null)
   },
   /**
    * Check if a key is defined in an object and if the value is not null, 0, false...
@@ -48,6 +48,6 @@ module.exports = {
    * @return {boolean}
    */
   isDefinedAndValid: (obj, key) => {
-    return (typeof obj[key] !== 'undefined' && obj[key])
+    return (typeof obj !== 'undefined' && typeof obj[key] !== 'undefined' && !!obj[key])
   }
 }

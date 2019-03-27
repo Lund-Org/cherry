@@ -6,9 +6,17 @@ module.exports = {
     'promise'
   ],
   env: {
-    node: true
+    node: true,
+    mocha: true
   },
   rules: {
     'arrow-parens': 0
+  },
+  globals: {
+    __root: true,
+    path: true,
+    assert: true,
+    expect: true,
+    should: true
   }
 }

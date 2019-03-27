@@ -3,16 +3,23 @@ const {
   ORM_OPTIONS_ERROR,
   ORM_CONNECTION_ERROR,
   ORM_POST_CONNECTION_ERROR
-} = require('./ORMException')
+} = require('./constants')
+const {
+  HOOK_BEFORE_START_ORM,
+  HOOK_AFTER_START_ORM,
+  HOOK_BEFORE_STOP_ORM,
+  HOOK_AFTER_STOP_ORM
+} = require('../hooks/constants')
 
 class ORMManager {
   /**
    * Constructor of the ORM Manager
    * Will be the abstraction of the orm operations
    */
-  constructor () {
+  constructor (cherryInstance) {
     this.options = {}
     this.plugin = null
+    this.cherry = cherryInstance
   }
 
   /**
@@ -41,10 +48,14 @@ class ORMManager {
   /**
    * Ask to the plugin to connect to the database
    */
-  connectDatabase () {
+  async connectDatabase () {
     if (this.plugin) {
+      this.cherry.hookConfigurator.trigger(HOOK_BEFORE_START_ORM, {
+        cherry: this.cherry,
+        orm: this.plugin
+      })
       try {
-        this.plugin.connectDatabase()
+        await this.plugin.connectDatabase()
       } catch (error) {
         throw new ORMException(error, ORM_CONNECTION_ERROR, this.options)
       }
@@ -54,6 +65,29 @@ class ORMManager {
       } catch (error) {
         throw new ORMException(error, ORM_POST_CONNECTION_ERROR, this.options)
       }
+      this.cherry.hookConfigurator.trigger(HOOK_AFTER_START_ORM, {
+        cherry: this.cherry,
+        orm: this.plugin
+      })
+    }
+  }
+
+  /**
+   * Ask to the plugin to connect to the database
+   */
+  async disconnectDatabase () {
+    if (this.plugin && this.plugin.getConnection()) {
+      this.cherry.hookConfigurator.trigger(HOOK_BEFORE_STOP_ORM, {
+        cherry: this.cherry,
+        orm: this.plugin
+      })
+      await this.plugin.closeConnection()
+      this.plugin.closeConnection().then(() => {
+        this.cherry.hookConfigurator.trigger(HOOK_AFTER_STOP_ORM, {
+          cherry: this.cherry,
+          orm: this.plugin
+        })
+      })
     }
   }
 

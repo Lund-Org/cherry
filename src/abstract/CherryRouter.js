@@ -37,6 +37,9 @@ class CherryRouter {
 
   /**
    * Set a value from the config or a default value if not present
+   * @param {object} routeConfig The configuration of a route
+   * @param {string} name The key to assign which matches with the routeConfig
+   * @param {mixed} defaultValue The default value to apply if not present in the routeConfig object
    */
   _setParameters (routeConfig, name, defaultValue) {
     if (check.isDefinedAndNotNull(routeConfig, name)) {

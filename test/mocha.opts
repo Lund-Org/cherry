@@ -1,0 +1,6 @@
+--compilers js:babel-core/register
+--require ./test/mocha.setup.js
+--colors
+--sort
+--globals global
+test/specs/**/*.spec.js

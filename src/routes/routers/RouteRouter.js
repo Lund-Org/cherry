@@ -1,4 +1,5 @@
 const check = require('../../helpers/check')
+const format = require('../../helpers/format')
 const { ROUTE } = require('../constants')
 const CherryRouter = require('../../abstract/CherryRouter')
 const RouteException = require('../exceptions/RouteException')
@@ -23,13 +24,10 @@ class RouteRouter extends CherryRouter {
   constructor (routeConfig) {
     super(routeConfig, RouteRouter)
     this._checkConfig(routeConfig)
-    this.path = routeConfig.path
+    this.path = format.refineUrl(routeConfig.path)
     this.callback = routeConfig.callback
     this._setParameters(routeConfig, 'method', null)
     this._setParameters(routeConfig, 'name', 'no-name-route-')
-    if (!this.path.endsWith('/')) {
-      this.path += '/'
-    }
     this.attributesMatches = []
     this.routeRegex = /(.+)/
     this._setParameters(routeConfig, 'rules', {})

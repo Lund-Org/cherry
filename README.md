@@ -1,7 +1,7 @@
 # 🍒 Cherry
 
 [![Build Status](https://travis-ci.com/Lund-Org/cherry.svg?branch=master)](https://travis-ci.com/Lund-Org/cherry)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9a31be9be174ebcbd59f/maintainability)](https://codeclimate.com/github/Lund-Org/cherry/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9a31be9be174ebcbd59f/maintainability)](https://codeclimate.com/github/Lund-Org/cherry/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9a31be9be174ebcbd59f/test_coverage)](https://codeclimate.com/github/Lund-Org/cherry/test_coverage)
 
 Cherry is a lightweight framework to quickly generate a web server
 
@@ -39,6 +39,9 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 ## :open_file_folder: Resources
 - [Cherry Handlebars connector](https://github.com/Lund-Org/cherry-handlebars-connector) : The plugin which uses [handlebars](https://handlebarsjs.com/) as the view engine
 - [Cherry Pug connector](https://github.com/Lund-Org/cherry-pug-connector) : The plugin which uses [pug](https://pugjs.org/api/getting-started.html) as the view engine
+
+- [Cherry Typeorm connector](https://github.com/Lund-Org/cherry-typeorm-connector) : The plugin which uses [typeorm](https://typeorm.io/) as the database-orm engine
+- [Cherry Sequelize connector](https://github.com/Lund-Org/cherry-sequelize-connector) : The plugin which uses [sequelize](http://docs.sequelizejs.com/) as the database-orm engine
 
 ## :pencil2: Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

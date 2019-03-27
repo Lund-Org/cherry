@@ -2,7 +2,12 @@ const CherryError = require('../abstract/CherryError')
 const check = require('../helpers/check')
 const CherryHTTPServer = require('./CherryHTTPServer')
 const CherryHTTPSServer = require('./CherryHTTPSServer')
-const { HOOK_BEFORE_START_SERVER, HOOK_AFTER_START_SERVER } = require('../hooks/constants')
+const {
+  HOOK_BEFORE_START_SERVER,
+  HOOK_AFTER_START_SERVER,
+  HOOK_BEFORE_STOP_SERVER,
+  HOOK_AFTER_STOP_SERVER
+} = require('../hooks/constants')
 
 class CherryServerManager {
   constructor (cherry) {
@@ -37,18 +42,40 @@ class CherryServerManager {
   /**
    * Start the configured servers
    */
-  startServers () {
-    this.servers.forEach((server) => {
-      this.cherry.hookConfigurator.trigger(HOOK_BEFORE_START_SERVER, {
+  async startServers () {
+    return this._bulkOnServers({
+      before: HOOK_BEFORE_START_SERVER,
+      after: HOOK_AFTER_START_SERVER
+    }, 'start')
+  }
+
+  /**
+   * Stop the http(s) server(s)
+   */
+  async stopServers () {
+    return this._bulkOnServers({
+      before: HOOK_BEFORE_STOP_SERVER,
+      after: HOOK_AFTER_STOP_SERVER
+    }, 'stop')
+  }
+
+  /**
+   * Do operations on each servers (used to start or stop all servers)
+   * @param {Object} hookToTrigger The hook to trigger under the format { before: xxx, after: xxx}
+   * @param {string} methodToTrigger The method to trigger on the server
+   */
+  async _bulkOnServers (hookToTrigger, methodToTrigger) {
+    for (const server of this.servers) {
+      this.cherry.hookConfigurator.trigger(hookToTrigger.before, {
         cherry: this.cherry,
         server: server
       })
-      server.start()
-      this.cherry.hookConfigurator.trigger(HOOK_AFTER_START_SERVER, {
+      await server[methodToTrigger]()
+      this.cherry.hookConfigurator.trigger(hookToTrigger.after, {
         cherry: this.cherry,
         server: server
       })
-    })
+    }
   }
 }
 

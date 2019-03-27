@@ -23,7 +23,6 @@ const options = {
       }
     }
   ],
-  publicFolder: path.join(__dirname, './public/'),
   middlewares,
   routes
 }

@@ -63,11 +63,23 @@ class CherryServer {
   }
 
   /**
-   * The handler when a request comes to the server
+   * Start the server to listen on a specific port
    */
   start () {
     console.log(`Start server on the port : ${this.options.port}`)
     this.server.listen(this.options.port)
+  }
+
+  /**
+   * Stop the server to listen on a specific port
+   */
+  async stop () {
+    return new Promise((resolve, reject) => {
+      console.log(`Stop server on the port : ${this.options.port}`)
+      this.server.close(() => {
+        resolve(true)
+      })
+    })
   }
 
   /* ---- Default behaviours ---- */

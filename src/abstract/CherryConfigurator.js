@@ -11,6 +11,10 @@ class CherryConfigurator {
 
   /**
    * Configure the configurator. Method to DRY
+   * @param {object} options The options to configure the Configurator
+   * @param {string} key The key to check in the options
+   * @param {string} methodName The method to call from the manager
+   * @param {string} expectedType The type expected in case of errors
    */
   configure (options, key, methodName, expectedType) {
     if (check.isDefined(options, key)) {
