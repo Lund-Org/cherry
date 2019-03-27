@@ -43,7 +43,6 @@ describe('HookConfigurator', () => {
       }
     })
 
-    console.log(builtChain)
     expect(() => {
       builtChain.resolve({}, {})
     }).to.not.throw()
