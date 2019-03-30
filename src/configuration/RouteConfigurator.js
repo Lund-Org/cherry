@@ -5,7 +5,7 @@ const PublicRouteManager = require('../routes/PublicRouteManager')
 const check = require('../helpers/check')
 const format = require('../helpers/format')
 const routers = require('../routes/routers')
-const EventEmitter = require('events').EventEmitter
+// const EventEmitter = require('events').EventEmitter
 
 class RouteConfigurator extends CherryConfigurator {
   constructor () {
@@ -13,7 +13,7 @@ class RouteConfigurator extends CherryConfigurator {
       routeManager: new RouteManager(routers),
       publicRouteManager: new PublicRouteManager()
     })
-    this.eventEmitter = new EventEmitter()
+    // this.eventEmitter = new EventEmitter()
   }
 
   /**
@@ -34,7 +34,7 @@ class RouteConfigurator extends CherryConfigurator {
     }
 
     this._configurePublicRoutes()
-    this._configureRoutes()
+    // this._configureRoutes()
   }
 
   /**
@@ -100,13 +100,13 @@ class RouteConfigurator extends CherryConfigurator {
   /**
    * Configure the configured routes
    */
-  _configureRoutes () {
-    // this.manager.routeManager.getRoutes().forEach((route) => {
-    //   this.eventEmitter.on(route.name, (req, res) => {
-    //     // do things ????
-    //   })
-    // })
-  }
+  /* _configureRoutes () {
+    this.manager.routeManager.getRoutes().forEach((route) => {
+      this.eventEmitter.on(route.name, (req, res) => {
+        // do things ????
+      })
+    })
+  } */
 
   /**
    * Search if a route match in a manager

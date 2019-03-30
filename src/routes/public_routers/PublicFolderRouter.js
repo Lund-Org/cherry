@@ -53,7 +53,7 @@ class PublicFolderRouter extends CherryRouter {
     const routeMatchResponse = new RouteMatchResponse()
 
     try {
-      const filePath = path.join(this.path, require('url').parse(route, true).pathname)
+      const filePath = path.join(this.path, route)
 
       if (fs.statSync(filePath)) {
         const readStream = fs.createReadStream(filePath)

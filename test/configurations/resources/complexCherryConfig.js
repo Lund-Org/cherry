@@ -1,9 +1,7 @@
 const fs = require('fs')
 
-const CherryHandlebarsConnector = require('@lund-org/cherry-handlebars-connector')
-const CherryTypeormConnector = require('@lund-org/cherry-typeorm-connector')
-
 const hooks = require('./hooks')
+const plugins = require('./plugins')
 const middlewares = require('./middlewares')
 const typeormConfig = require('./typeorm')
 
@@ -81,7 +79,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [CherryHandlebarsConnector, CherryTypeormConnector],
+  plugins,
   database: typeormConfig,
   hooks,
   middlewares

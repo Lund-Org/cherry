@@ -35,7 +35,7 @@ class PluginConfigurator extends CherryConfigurator {
   getPluginInstance (name) {
     let PluginClass = this.getPlugin(name)
 
-    if (PluginClass) {
+    if (typeof PluginClass !== 'undefined' && PluginClass) {
       return new PluginClass()
     } else {
       return null
@@ -44,7 +44,7 @@ class PluginConfigurator extends CherryConfigurator {
 
   /**
    * Retrieves the registered plugins
-   * @return {Array<Class>}
+   * @return {Object<Class>}
    */
   getPlugins () {
     return this.manager.getPlugins()

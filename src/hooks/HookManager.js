@@ -23,6 +23,8 @@ class HookManager {
    */
   addHook (newHook) {
     let _hook = newHook
+    let duplicateFound = false
+
     if (!(newHook instanceof Hook)) {
       _hook = new Hook(newHook)
     }
@@ -33,12 +35,15 @@ class HookManager {
     for (let index in this.hooks) {
       this.hooks[index].forEach((hook) => {
         if (_hook.getName() === hook.getName()) {
+          duplicateFound = true
           this._manageDuplicateHook(hook, _hook)
         }
       })
     }
 
-    this.hooks[_hook.getType()].push(_hook)
+    if (!duplicateFound) {
+      this.hooks[_hook.getType()].push(_hook)
+    }
   }
 
   /**
@@ -50,14 +55,18 @@ class HookManager {
 
     for (let index in this.hooks) {
       // Bind the type of hooks
-      eventEmitter.on(index, (data) => {
-        this.hooks[index].some((hook) => {
-          return hook.execute(data)
+      if (!eventEmitter.eventNames().includes(index)) {
+        eventEmitter.on(index, (data) => {
+          this.hooks[index].some((hook) => {
+            return hook.execute(data)
+          })
         })
-      })
+      }
       // Bind the name of hook
       this.hooks[index].forEach((hook) => {
-        eventEmitter.on(hook.getName(), hook.execute)
+        if (!eventEmitter.eventNames().includes(hook.getName())) {
+          eventEmitter.on(hook.getName(), hook.execute)
+        }
       })
     }
   }

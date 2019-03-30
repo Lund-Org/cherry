@@ -33,7 +33,7 @@ class PluginManager {
 
   /**
    * Retrieves the registered plugins
-   * @return {Array<Class>}
+   * @return {Object<Class>}
    */
   getPlugins () {
     return this.plugins
