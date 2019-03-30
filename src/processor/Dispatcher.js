@@ -1,6 +1,5 @@
 const Resolver = require('./Resolver')
 const querystring = require('querystring')
-const format = require('../helpers/format')
 const url = require('url')
 
 /**
@@ -23,9 +22,9 @@ class Dispatcher {
    */
   dispatch (request, response) {
     const parsedUrlObject = url.parse(request.url, true)
-    const parsedUrl = format.refineUrl(parsedUrlObject.pathname)
+    const routeUrl = parsedUrlObject.pathname
     const matchingRouteResponse = this.cherry.routeConfigurator.searchMatchingRoute(
-      parsedUrl,
+      routeUrl,
       request,
       response
     )

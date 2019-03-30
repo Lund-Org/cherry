@@ -3,6 +3,7 @@ const ConfiguratorException = require('./ConfiguratorException')
 const RouteManager = require('../routes/RouteManager')
 const PublicRouteManager = require('../routes/PublicRouteManager')
 const check = require('../helpers/check')
+const format = require('../helpers/format')
 const routers = require('../routes/routers')
 const EventEmitter = require('events').EventEmitter
 
@@ -58,7 +59,7 @@ class RouteConfigurator extends CherryConfigurator {
     } else {
       return this._searchMatchingRoute(
         this.manager.routeManager,
-        route,
+        format.refineUrl(route),
         request,
         response
       )
