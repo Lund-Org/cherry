@@ -56,5 +56,10 @@
   },
   "files": [
     "src"
-  ]
+  ],
+  "config": {
+    "exportAliases": {
+      "route-types": "./src/routes/constants"
+    }
+  }
 }

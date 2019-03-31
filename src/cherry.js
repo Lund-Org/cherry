@@ -24,7 +24,6 @@ class Cherry {
    * @param {Object} options The options to configure Cherry
    */
   configure (options = {}) {
-    // caca
     // if (check.isDefined(options, 'onError')) {
     //   this.dispatcher.onError(options.onError)
     // }
