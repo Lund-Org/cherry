@@ -81,13 +81,15 @@ class ORMManager {
         cherry: this.cherry,
         orm: this.plugin
       })
-      await this.plugin.closeConnection()
-      this.plugin.closeConnection().then(() => {
+      try {
+        await this.plugin.closeConnection()
         this.cherry.hookConfigurator.trigger(HOOK_AFTER_STOP_ORM, {
           cherry: this.cherry,
           orm: this.plugin
         })
-      })
+      } catch (err) {
+        // We ignore the error
+      }
     }
   }
 

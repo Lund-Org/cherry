@@ -54,8 +54,9 @@ class Cherry {
    * Start the server(s) and disconnect from database(s)
    */
   async stop () {
-    await this.ormManager.disconnectDatabase()
-    await this.cherryServerManager.stopServers()
+    await this.cherryServerManager.stopServers(async () => {
+      await this.ormManager.disconnectDatabase()
+    })
   }
 }
 

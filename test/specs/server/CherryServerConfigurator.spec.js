@@ -37,7 +37,6 @@ describe('RouteMatchResponse', () => {
         'Access-Control-Allow-Origin': 'test'
       }
     })
-    console.log(config.securityOptions)
     expect(config.securityOptions['Access-Control-Allow-Origin']).to.be.equal('test')
   })
 

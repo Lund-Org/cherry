@@ -52,11 +52,11 @@ class CherryServerManager {
   /**
    * Stop the http(s) server(s)
    */
-  async stopServers () {
+  async stopServers (callback) {
     return this._bulkOnServers({
       before: HOOK_BEFORE_STOP_SERVER,
       after: HOOK_AFTER_STOP_SERVER
-    }, 'stop')
+    }, 'stop', callback)
   }
 
   /**
@@ -64,13 +64,13 @@ class CherryServerManager {
    * @param {Object} hookToTrigger The hook to trigger under the format { before: xxx, after: xxx}
    * @param {string} methodToTrigger The method to trigger on the server
    */
-  async _bulkOnServers (hookToTrigger, methodToTrigger) {
+  async _bulkOnServers (hookToTrigger, methodToTrigger, additionnalData) {
     for (const server of this.servers) {
       this.cherry.hookConfigurator.trigger(hookToTrigger.before, {
         cherry: this.cherry,
         server: server
       })
-      await server[methodToTrigger]()
+      await server[methodToTrigger](additionnalData)
       this.cherry.hookConfigurator.trigger(hookToTrigger.after, {
         cherry: this.cherry,
         server: server
