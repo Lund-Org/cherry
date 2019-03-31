@@ -57,14 +57,16 @@ describe('Cherry', () => {
       expect(basicCherryInstance.cherryServerManager.servers[0].server.listening).to.be.true
     })
 
-    it('Test to request the server', (done) => {
+    it('Test to request the server', function (done) {
+      this.timeout(5000)
       request(http, 'http://localhost:5000', (payload) => {
         expect(payload).to.be.equal('true')
         done()
       })
     })
 
-    it('Test if the configured server (with basic configuration) can stop', async () => {
+    it('Test if the configured server (with basic configuration) can stop', async function () {
+      this.timeout(5000)
       await basicCherryInstance.stop()
       expect(basicCherryInstance.cherryServerManager.servers[0].server.listening).to.be.false
     })
@@ -112,7 +114,8 @@ describe('Cherry', () => {
       })
     })
 
-    it('Test if the configured server (with complex configuration) can stop', async () => {
+    it('Test if the configured server (with complex configuration) can stop', async function () {
+      this.timeout(5000)
       await complexCherryInstance.stop()
       expect(complexCherryInstance.cherryServerManager.servers[0].server.listening).to.be.false
     })
