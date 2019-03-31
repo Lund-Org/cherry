@@ -42,7 +42,7 @@ class Resolver {
     if (Promise.resolve(resultOfMethod) === resultOfMethod) {
       resultOfMethod.then((asyncResult) => {
         cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, { request, response, processResult: asyncResult })
-        response.addMissingRespond(asyncResult)
+        response.addMissingResponse(asyncResult)
       }).catch((e) => {
         // @todo use the onError method
         console.log('Error in _resolve', e)
@@ -51,7 +51,7 @@ class Resolver {
       })
     } else {
       cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, { request, response, processResult: resultOfMethod })
-      response.addMissingRespond(resultOfMethod)
+      response.addMissingResponse(resultOfMethod)
     }
   }
 }

@@ -8,7 +8,16 @@ const typeormConfig = require('./typeorm')
 module.exports = {
   servers: [
     {
-      port: 5001
+      port: 5001,
+      optionManagement: (req, res) => {
+        if (req.method.toUpperCase() === 'OPTIONS' && this.options.securityOptions['Access-Control-Allow-Methods'].includes('OPTIONS')) {
+          res.writeHead(200)
+          res.end()
+          return true
+        }
+
+        return false
+      }
     },
     {
       port: 5002,

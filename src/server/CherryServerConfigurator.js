@@ -1,3 +1,4 @@
+const merge = require('deepmerge')
 const check = require('../helpers/check')
 const CherryError = require('../abstract/CherryError')
 
@@ -14,7 +15,7 @@ class CherryServerConfigurator {
       port: this.getServerPort(options),
       securityOptions: this.buildSecurityOptions(options),
       httpsOptions: Object.assign({}, options.httpsOptions),
-      errorCallback: this.getErrorCallbackFromOptions(options),
+      // errorCallback: this.getErrorCallbackFromOptions(options),
       optionCallback: this.getOptionCallbackFromOptions(options)
     }
   }
@@ -50,6 +51,10 @@ class CherryServerConfigurator {
     let buildOptions = {}
     const hasSecOpt = check.isDefined(options, 'securityOptions')
 
+    if (hasSecOpt) {
+      buildOptions = merge({}, options.securityOptions)
+    }
+
     if (!hasSecOpt || !check.isDefined(options.securityOptions, 'Access-Control-Allow-Origin')) {
       buildOptions['Access-Control-Allow-Origin'] = '*'
     }
@@ -66,18 +71,18 @@ class CherryServerConfigurator {
     return buildOptions
   }
 
-  /**
-   * Check the security options, provides default values, throw errors on invalid data
-   * @param {Object} options The options provided to configure the server
-   * @return {Object}
-   */
-  getErrorCallbackFromOptions (options) {
-    if (check.isDefined(options, 'onError') && typeof options.onError === 'function') {
-      return options.onError
-    } else {
-      return null
-    }
-  }
+  // /**
+  //  * Check the security options, provides default values, throw errors on invalid data
+  //  * @param {Object} options The options provided to configure the server
+  //  * @return {Object}
+  //  */
+  // getErrorCallbackFromOptions (options) {
+  //   if (check.isDefined(options, 'onError') && typeof options.onError === 'function') {
+  //     return options.onError
+  //   } else {
+  //     return null
+  //   }
+  // }
 
   /**
    * Check if an option callback has been defined and use it

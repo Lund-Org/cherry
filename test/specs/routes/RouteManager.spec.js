@@ -1,0 +1,5 @@
+/**
+ * IN THIS FILE, WE DON'T TEST ANYTHING BECAUSE THERE IS ONLY A CONSTRUCTOR
+ * AND A METHOD WHICH ARE CALLED IN THE CHERRY TEST
+ * (if we register a route, of course it goes here)
+ */

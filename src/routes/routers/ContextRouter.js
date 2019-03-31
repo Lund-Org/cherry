@@ -70,7 +70,8 @@ class ContextRouter extends CherryRouter {
    * The method to check if a route match
    */
   _checkConfig (routeConfig) {
-    if (!check.isDefinedAndNotNull(routeConfig, 'collection') && Array.isArray(routeConfig.collection)) {
+    if (!check.isDefinedAndNotNull(routeConfig, 'collection') ||
+      (Array.isArray(routeConfig.collection) && routeConfig.collection.length === 0)) {
       throw new RouteException('collection')
     }
   }

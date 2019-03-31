@@ -46,18 +46,18 @@ class CherryServer {
     if (this.options.optionCallback === null) {
       shouldContinue = !this.defaultOptionsManagement(request, response)
     } else if (typeof this.options.optionCallback === 'function') {
-      shouldContinue = !this.options.optionCallback()
+      shouldContinue = !(this.options.optionCallback.bind(this)(request, response))
     }
 
     if (shouldContinue) {
       try {
         this.cherry.dispatcher.dispatch(request, response)
       } catch (error) {
-        if (this.errorCallback) {
-          this.errorCallback(request, response, error)
-        } else {
-          this.defaultErrorManagement(response, error)
-        }
+        // if (this.errorCallback) {
+        //   this.errorCallback(request, response, error)
+        // } else {
+        this.defaultErrorManagement(response, error)
+        // }
       }
     }
   }
@@ -90,7 +90,7 @@ class CherryServer {
    * @param {CherryServerResponse} res The response object
    */
   defaultOptionsManagement (req, res) {
-    if (req.method === 'OPTIONS' && this.options.securityOptions['Access-Control-Allow-Methods'].includes('OPTIONS')) {
+    if (req.method.toUpperCase() === 'OPTIONS' && this.options.securityOptions['Access-Control-Allow-Methods'].includes('OPTIONS')) {
       res.writeHead(200)
       res.end()
       return true

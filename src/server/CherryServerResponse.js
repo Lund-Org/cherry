@@ -31,10 +31,18 @@ class CherryServerResponse extends ServerResponse {
   }
 
   /**
+   * Get the cherry instance bound to the request
+   * @return {Cherry} The cherry instance
+   */
+  getCherry () {
+    return this.cherry
+  }
+
+  /**
    * Add a response to shutdown the request if nothing has been set as response
    * @param {mixed} resultValue The result value of the callback
    */
-  addMissingRespond (resultValue) {
+  addMissingResponse (resultValue) {
     if (!this.finished) {
       if (typeof resultValue === 'object') {
         this.json(resultValue)

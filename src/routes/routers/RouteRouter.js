@@ -52,7 +52,7 @@ class RouteRouter extends CherryRouter {
   matchRoute (route, request, response) {
     const routeMatchResponse = new RouteMatchResponse()
 
-    if (this.method.includes(request.method.toUpperCase()) || this.method.includes('*') || this.method === null) {
+    if (!this.method || this.method.includes(request.method.toUpperCase()) || this.method.includes('*')) {
       let result = route.match(this.routeRegex)
 
       if (result) {
