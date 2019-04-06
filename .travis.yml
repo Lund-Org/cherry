@@ -16,12 +16,17 @@ before_script:
   - ./cc-test-reporter before-build
 script: npm run coverage
 stages:
+  - name: npm build
+    if: tag =~ /^\d+\.\d+\.\d+$/
   - name: npm release
     if: tag =~ /^\d+\.\d+\.\d+$/
 after_script:
   - ./cc-test-reporter after-build format-coverage -t lcov --exit-code $TRAVIS_TEST_RESULT
 jobs:
   include:
+    - stage: npm build
+      node_js: "11"
+      script: npm run build
     - stage: npm release
       node_js: "11"
       script: echo "Deploying to npm ..."

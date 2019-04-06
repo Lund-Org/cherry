@@ -8,7 +8,7 @@ const typeormConfig = require('./typeorm')
 module.exports = {
   servers: [
     {
-      port: 5001,
+      port: 3001,
       optionManagement: (req, res) => {
         if (req.method.toUpperCase() === 'OPTIONS' && this.options.securityOptions['Access-Control-Allow-Methods'].includes('OPTIONS')) {
           res.writeHead(200)
@@ -20,7 +20,7 @@ module.exports = {
       }
     },
     {
-      port: 5002,
+      port: 3002,
       https: true,
       httpsOptions: {
         key: fs.readFileSync(path.join(__root, './test/configurations/key.pem')),
