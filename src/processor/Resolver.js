@@ -41,8 +41,11 @@ class Resolver {
 
     if (Promise.resolve(resultOfMethod) === resultOfMethod) {
       resultOfMethod.then((asyncResult) => {
-        cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, { request, response, processResult: asyncResult })
-        response.addMissingResponse(asyncResult)
+        this._addMissingResponse(
+          cherryInstance,
+          { request, response, processResult: asyncResult },
+          asyncResult
+        )
       }).catch((e) => {
         // @todo use the onError method
         console.log('Error in _resolve', e)
@@ -50,9 +53,23 @@ class Resolver {
         response.end(JSON.stringify(e))
       })
     } else {
-      cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, { request, response, processResult: resultOfMethod })
-      response.addMissingResponse(resultOfMethod)
+      this._addMissingResponse(
+        cherryInstance,
+        { request, response, processResult: resultOfMethod },
+        resultOfMethod
+      )
     }
+  }
+
+  /**
+   * Add a response when it's missing
+   * @param {Cherry} cherryInstance The cherry Instance
+   * @param {Object} hookData The data sent by the AFTER PROCESS HOOK
+   * @param {mixed} result The result of the callback method
+   */
+  _addMissingResponse (cherryInstance, hookData, result) {
+    cherryInstance.hookConfigurator.trigger(HOOK_AFTER_PROCESS, hookData)
+    hookData.response.addMissingResponse(result)
   }
 }
 

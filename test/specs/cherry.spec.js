@@ -16,20 +16,22 @@ let complexCherryInstance = null
  * @param {string} url The url to request
  * @param {Funciton} callback The function to test if the payload is good
  */
-function request (module, url, callback) {
-  module.get(url, (resp) => {
-    let data = ''
-    // A chunk of data has been recieved.
-    resp.on('data', (chunk) => {
-      data += chunk
+async function request (module, url, callback) {
+  return new Promise((resolve, reject) => {
+    module.get(url, (resp) => {
+      let data = ''
+      // A chunk of data has been recieved.
+      resp.on('data', (chunk) => {
+        data += chunk
+      })
+      // The whole response has been received. Print out the result.
+      resp.on('end', () => {
+        resolve(callback(data))
+      })
+    }).on('error', (err) => {
+      expect(true).to.be.false
+      reject(err)
     })
-    // The whole response has been received. Print out the result.
-    resp.on('end', () => {
-      callback(data)
-    })
-  }).on('error', (err) => {
-    console.log(err)
-    expect(true).to.be.false
   })
 }
 
@@ -59,8 +61,9 @@ describe('Cherry', () => {
 
     it('Test to request the server', function (done) {
       this.timeout(5000)
-      request(http, 'http://localhost:5000', (payload) => {
+      request(http, 'http://localhost:3000', (payload) => {
         expect(payload).to.be.equal('true')
+      }).then(() => {
         done()
       })
     })
@@ -86,30 +89,30 @@ describe('Cherry', () => {
     })
 
     it('Test to request the http server', () => {
-      request(http, 'http://localhost:5001/test/simple-test/9', (payload) => {
+      return request(http, 'http://localhost:3001/test/simple-test/9', (payload) => {
         const decodedResponse = JSON.parse(payload)
         expect(decodedResponse.test).to.be.equal('9')
       })
     })
     it('Test to request the https server', () => {
-      request(https, 'https://localhost:5002/test/simple-test/99', (payload) => {
+      return request(https, 'https://localhost:3002/test/simple-test/99', (payload) => {
         const decodedResponse = JSON.parse(payload)
         expect(decodedResponse.test).to.be.equal('99')
       })
     })
     it('Test to request the server to hit the public folder', () => {
-      request(http, 'http://localhost:5001/test.json', (payload) => {
+      return request(http, 'http://localhost:3001/test.json', (payload) => {
         const decodedResponse = JSON.parse(payload)
         expect(decodedResponse.test).to.be.true
       })
     })
     it('Test to request the server to use the view renderer', () => {
-      request(http, 'http://localhost:5001/html-test', (payload) => {
+      return request(http, 'http://localhost:3001/html-test', (payload) => {
         expect(payload.trim()).to.be.equal('<div>test</div>')
       })
     })
     it('Test to request the server to use the downloader', () => {
-      request(http, 'http://localhost:5001/download-test', (payload) => {
+      return request(http, 'http://localhost:3001/download-test', (payload) => {
         expect(payload.trim()).to.be.equal('<div>{{ value }}</div>')
       })
     })

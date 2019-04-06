@@ -1,6 +1,6 @@
 {
   "name": "@lund-org/cherry",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A light framework to quickly create a web server",
   "main": "./src/cherry.js",
   "author": "Lund-Org",
@@ -17,7 +17,8 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "mocha --compilers js:@babel/register --require ignore-styles -r jsdom-global/register",
-    "coverage": "nyc npm run test"
+    "coverage": "nyc npm run test",
+    "build": "node ./config/build.js"
   },
   "engines": {
     "node": ">= 8.0.0"
@@ -57,9 +58,9 @@
   "files": [
     "src"
   ],
-  "config": {
+  "build-config": {
     "exportAliases": {
-      "route-types": "./src/routes/constants"
+      "./src/route-types.js": "./src/routes/constants.js"
     }
   }
 }
