@@ -34,7 +34,7 @@ Warning : It doesn't work on Windows, you will only get the key.pem
 - [x] [Hooks](https://github.com/Lund-Org/cherry/issues/6)
 - [x] [Plugin management](https://github.com/Lund-Org/cherry/issues/7)
 - [x] [Enhancement of the route format](https://github.com/Lund-Org/cherry/issues/12)
-- [ ] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
+- [x] [Release and deployment workflow](https://github.com/Lund-Org/cherry/issues/8)
 
 ## :open_file_folder: Resources
 - [Cherry Handlebars connector](https://github.com/Lund-Org/cherry-handlebars-connector) : The plugin which uses [handlebars](https://handlebarsjs.com/) as the view engine
