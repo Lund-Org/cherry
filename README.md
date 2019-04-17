@@ -33,10 +33,10 @@ You can hook some events and retrieve informations. It is useful to add some cod
 
 | Hook Name 	| Data sent	|
 |------------	|---------	|
-| beforeStartServer   | `{ cherry: <Cherry>, server: <CherryHTTPSServer|CherryHTTPServer> }` |
-| afterStartServer    | `{ cherry: <Cherry>, server: <CherryHTTPSServer|CherryHTTPServer> }` |
-| beforeStopServer    | `{ cherry: <Cherry>, server: <CherryHTTPSServer|CherryHTTPServer> }` |
-| afterStopServer     | `{ cherry: <Cherry>, server: <CherryHTTPSServer|CherryHTTPServer> }` |
+| beforeStartServer   | `{ cherry: <Cherry>, server: <CherryHTTPSServer or CherryHTTPServer> }` |
+| afterStartServer    | `{ cherry: <Cherry>, server: <CherryHTTPSServer or CherryHTTPServer> }` |
+| beforeStopServer    | `{ cherry: <Cherry>, server: <CherryHTTPSServer or CherryHTTPServer> }` |
+| afterStopServer     | `{ cherry: <Cherry>, server: <CherryHTTPSServer or CherryHTTPServer> }` |
 | beforeStartOrm      | `{ cherry: <Cherry>, orm: <The ORM plugin instance> }` |
 | afterStartOrm       | `{ cherry: <Cherry>, orm: <The ORM plugin instance> }` |
 | beforeStopOrm       | `{ cherry: <Cherry>, orm: <The ORM plugin instance> }` |
@@ -51,6 +51,7 @@ You can hook some events and retrieve informations. It is useful to add some cod
 [Example here](https://github.com/Lund-Org/cherry/tree/master/examples/01-basic) [and here](https://github.com/Lund-Org/cherry/tree/master/examples/04-orm)
 
 There is 2 types of route, the public folders to retrieve raw resources and the configured routes.
+
 :warning: The public routes are always resolved at first
 
 ##### Public routes
