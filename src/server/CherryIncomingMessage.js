@@ -1,9 +1,15 @@
 const { IncomingMessage } = require('http')
+const requestBuiltins = require('../builtins/request')
 
 class CherryIncomingMessage extends IncomingMessage {
   constructor (arg) {
     super(arg)
     this.cherry = null
+
+    // Bind the builtins methods
+    for (let requestBuiltinName in requestBuiltins) {
+      this[requestBuiltinName] = requestBuiltins[requestBuiltinName].bind(this)
+    }
   }
 
   /**

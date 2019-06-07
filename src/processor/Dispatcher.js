@@ -1,5 +1,4 @@
 const Resolver = require('./Resolver')
-const querystring = require('querystring')
 const url = require('url')
 
 /**
@@ -32,7 +31,7 @@ class Dispatcher {
     if (matchingRouteResponse) {
       if (!matchingRouteResponse.shouldStop()) {
         request.routeParameters = matchingRouteResponse.getAttributes()
-        this.boundDataToRequest(request, parsedUrlObject).then(() => {
+        request.boundDataToRequest().then(() => {
           request._route = matchingRouteResponse.getMatchingRoute()
           this.resolver.resolve(request, response)
         }).catch((err) => {
@@ -46,38 +45,6 @@ class Dispatcher {
       response.writeHead(404)
       response.end('')
     }
-  }
-
-  /**
-   * Get the body of the request and build it to use it with a friendly way
-   * @param {CherryIncomingMessage} request The current request
-   * @param {Object} parsedUrl The url object of the parsed url
-   * @return {Promise} The body data of the request
-   */
-  async boundDataToRequest (request, parsedUrl) {
-    return new Promise((resolve, reject) => {
-      const chunks = []
-
-      request.on('data', function (data) {
-        chunks.push(data)
-      })
-      request.on('end', function () {
-        request.bodyBuffer = Buffer.concat(chunks)
-        request.body = request.bodyBuffer.toString()
-        let post = {}
-
-        try {
-          post = JSON.parse(request.body)
-        } catch (e) {
-          post = querystring.parse(request.body)
-        }
-        request.params = { ...parsedUrl.querystring, ...post }
-        resolve(request)
-      })
-      request.on('error', function (err) {
-        reject(err)
-      })
-    })
   }
 }
 
