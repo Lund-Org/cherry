@@ -40,7 +40,8 @@ let fakeRequest = {
     } else if (event === 'error' && shouldBeAnError) {
       requestEventCallback(1)
     }
-  }
+  },
+  boundDataToRequest: async () => {}
 }
 let fakeResponse = {
   writeHead (httpCode) {
@@ -56,25 +57,6 @@ let fakeResponse = {
 describe('Dispatcher', () => {
   before(() => {
     dispatcher = new Dispatcher(fakeCherryInstance)
-  })
-
-  it('Tests the method boundDataToRequest', async () => {
-    try {
-      let dataValue = await dispatcher.boundDataToRequest(fakeRequest, { querystring: {} })
-      expect(typeof dataValue.params).to.be.equal('object')
-      expect(dataValue.params.foo).to.be.equal('bar')
-    } catch (e) {
-      expect.fail()
-    }
-
-    shouldBeAnError = true
-
-    try {
-      await dispatcher.boundDataToRequest(fakeRequest, { querystring: {} })
-      expect.fail()
-    } catch (e) {
-      expect(e).to.be.equal(1)
-    }
   })
 
   it('Tests the method dispatch', () => {
@@ -96,6 +78,15 @@ describe('Dispatcher', () => {
 
     shouldBeAnError = true
     expect(() => {
+      dispatcher.dispatch(fakeRequest, fakeResponse)
+    }).to.not.throw()
+
+    shouldBeAnError = false
+    shouldBeAnError2 = false
+    expect(() => {
+      fakeRequest.boundDataToRequest = async () => {
+        return new Promise((resolve, reject) => { reject(new Error('Test the catch')) })
+      }
       dispatcher.dispatch(fakeRequest, fakeResponse)
     }).to.not.throw()
   })

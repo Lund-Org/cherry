@@ -14,7 +14,7 @@ let complexCherryInstance = null
  * Method to request an url (to test the server)
  * @param {Object} module The module http or https to use
  * @param {string} url The url to request
- * @param {Funciton} callback The function to test if the payload is good
+ * @param {Function} callback The function to test if the payload is good
  */
 async function request (module, url, callback) {
   return new Promise((resolve, reject) => {

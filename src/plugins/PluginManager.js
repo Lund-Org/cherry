@@ -4,6 +4,7 @@ class PluginManager {
   constructor () {
     this.plugins = {
       // Default keys of plugins that are used in the core
+      RequestEngine: null,
       ViewEngine: null,
       DatabaseEngine: null
     }

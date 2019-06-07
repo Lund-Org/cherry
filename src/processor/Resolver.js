@@ -49,8 +49,10 @@ class Resolver {
       }).catch((e) => {
         // @todo use the onError method
         console.log('Error in _resolve', e)
-        response.writeHead(500, { 'Content-Type': 'application/json' })
-        response.end(JSON.stringify(e))
+        if (!response.finished) {
+          response.writeHead(500, { 'Content-Type': 'application/json' })
+          response.end(JSON.stringify(e))
+        }
       })
     } else {
       this._addMissingResponse(

@@ -102,7 +102,7 @@ async function html (str, refOptions = null) {
   let viewEngine = null
 
   if (this.cherry.pluginConfigurator.getPlugin('ViewEngine')) {
-    viewEngine = this.cherry.pluginConfigurator.getPluginInstance('ViewEngine', options)
+    viewEngine = this.cherry.pluginConfigurator.getPluginInstance('ViewEngine')
   }
 
   if (!viewEngine) {
