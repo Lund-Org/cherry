@@ -3,6 +3,7 @@ const PluginConfigurator = require('./configuration/PluginConfigurator')
 const HookConfigurator = require('./configuration/HookConfigurator')
 const MiddlewareConfigurator = require('./configuration/MiddlewareConfigurator')
 const RouteConfigurator = require('./configuration/RouteConfigurator')
+const DefaultErrorPageConfigurator = require('./configuration/DefaultErrorPageConfigurator')
 const ORMManager = require('./orm/ORMManager')
 const CherryServerManager = require('./server/CherryServerManager')
 
@@ -14,6 +15,7 @@ class Cherry {
     this.hookConfigurator = new HookConfigurator()
     this.middlewareConfigurator = new MiddlewareConfigurator()
     this.routeConfigurator = new RouteConfigurator()
+    this.defaultErrorPageConfigurator = new DefaultErrorPageConfigurator()
 
     this.ormManager = new ORMManager(this)
     this.cherryServerManager = new CherryServerManager(this)
@@ -24,14 +26,11 @@ class Cherry {
    * @param {Object} options The options to configure Cherry
    */
   configure (options = {}) {
-    // if (check.isDefined(options, 'onError')) {
-    //   this.dispatcher.onError(options.onError)
-    // }
-
     this.pluginConfigurator.configure(options)
     this.hookConfigurator.configure(options)
     this.middlewareConfigurator.configure(options)
     this.routeConfigurator.configure(options)
+    this.defaultErrorPageConfigurator.configure(options)
 
     if (this.pluginConfigurator.getPlugin('DatabaseEngine') && typeof options.database !== 'undefined') {
       this.ormManager.setPlugin(this.pluginConfigurator.getPlugin('DatabaseEngine'))
