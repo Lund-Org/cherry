@@ -38,8 +38,7 @@ class Dispatcher {
         this.executeRoute(matchingRouteResponse, request, response)
       }
     } else {
-      response.writeHead(404)
-      response.end('')
+      this.cherry.defaultErrorPageConfigurator.manager.clientErrorPage(request, response)
     }
   }
 
@@ -78,10 +77,7 @@ class Dispatcher {
       request._route = matchingRouteResponse.getMatchingRoute()
       this.resolver.resolve(request, response)
     }).catch((err) => {
-      // @todo : manage error
-      console.log(err)
-      response.writeHead(500)
-      response.end('')
+      this.cherry.defaultErrorPageConfigurator.manager.serverErrorPage(request, response, err)
     })
   }
 }

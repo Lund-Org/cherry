@@ -1,5 +1,6 @@
 /* eslint no-unused-expressions: 0 */
 const Dispatcher = require(path.join(__root, './src/processor/Dispatcher'))
+const DefaultErrorPageConfigurator = require(path.join(__root, './src/configuration/DefaultErrorPageConfigurator'))
 
 /* Simulation values */
 
@@ -28,7 +29,8 @@ let fakeCherryInstance = {
         }
       }
     }
-  }
+  },
+  defaultErrorPageConfigurator: new DefaultErrorPageConfigurator()
 }
 let fakeRequest = {
   url: 'http://localhost:3000/test',
@@ -44,10 +46,11 @@ let fakeRequest = {
   boundDataToRequest: async () => {}
 }
 let fakeResponse = {
-  writeHead (httpCode) {
+  html: () => {},
+  writeHead: (httpCode) => {
     expect(httpCode).to.be.above(400)
   },
-  end (response) {
+  end: (response) => {
     expect(typeof response).to.be.equal('string')
   }
 }

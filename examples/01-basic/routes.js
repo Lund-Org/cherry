@@ -5,6 +5,14 @@ module.exports = {
     {
       type: 'ROUTE',
       method: ['GET'],
+      path: '/error-page',
+      callback: (req, res) => {
+        throw new Error('Simulate 500')
+      }
+    },
+    {
+      type: 'ROUTE',
+      method: ['GET'],
       path: '/test-without-middlewares',
       callback: (req, res) => {
         res.end('<div>Seems ok</div>')
