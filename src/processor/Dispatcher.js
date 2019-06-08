@@ -1,5 +1,6 @@
 const Resolver = require('./Resolver')
 const url = require('url')
+const format = require('../helpers/format')
 
 /**
  * The class which will find the right route and resolve it
@@ -52,13 +53,13 @@ class Dispatcher {
   checkRedirections (routePath, request, response) {
     const matchingRedirection = this.cherry.redirectionConfigurator
       .searchMatchingRedirection(
-        routePath,
+        format.refineUrl(routePath),
         request,
         response
       )
 
     if (matchingRedirection) {
-      matchingRedirection.execute(routePath, request, response)
+      matchingRedirection.execute(format.refineUrl(routePath), request, response)
       return true
     }
 

@@ -1,4 +1,5 @@
 const url = require('url')
+const querystring = require('querystring')
 const check = require('../helpers/check')
 const RedirectionException = require('./RedirectionException')
 
@@ -66,7 +67,11 @@ class Redirection {
     targetUrl = targetUrl.replace(/\$\d/gi, '')
 
     if (this.keepQueryString) {
-      targetUrl += parsedUrl.search
+      if (targetUrl.indexOf('?') !== -1) {
+        targetUrl += '&' + querystring.stringify(parsedUrl.query)
+      } else {
+        targetUrl += parsedUrl.search
+      }
     }
 
     response.redirect(targetUrl, this.statusCode)

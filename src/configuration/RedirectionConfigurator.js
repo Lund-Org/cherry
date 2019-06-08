@@ -1,7 +1,6 @@
 const CherryConfigurator = require('../abstract/CherryConfigurator')
 const RedirectionManager = require('../redirections/RedirectionManager')
 const check = require('../helpers/check')
-const format = require('../helpers/format')
 
 class RedirectionConfigurator extends CherryConfigurator {
   constructor () {
@@ -30,7 +29,7 @@ class RedirectionConfigurator extends CherryConfigurator {
     let routeResponse = null
 
     this.manager.getRedirections().some((redirection) => {
-      if (redirection.matchRoute(format.refineUrl(route), request, response)) {
+      if (redirection.matchRoute(route, request, response)) {
         routeResponse = redirection
         return true
       }
