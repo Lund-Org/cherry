@@ -22,6 +22,11 @@ class Dispatcher {
   dispatch (request, response) {
     const parsedUrlObject = url.parse(request.url, true)
     const routeUrl = parsedUrlObject.pathname
+
+    if (this.checkRedirections(routeUrl, request, response)) {
+      return
+    }
+
     const matchingRouteResponse = this.cherry.routeConfigurator.searchMatchingRoute(
       routeUrl,
       request,
@@ -30,21 +35,54 @@ class Dispatcher {
 
     if (matchingRouteResponse) {
       if (!matchingRouteResponse.shouldStop()) {
-        request.routeParameters = matchingRouteResponse.getAttributes()
-        request.boundDataToRequest().then(() => {
-          request._route = matchingRouteResponse.getMatchingRoute()
-          this.resolver.resolve(request, response)
-        }).catch((err) => {
-          // @todo : manage error
-          console.log(err)
-          response.writeHead(500)
-          response.end('')
-        })
+        this.executeRoute(matchingRouteResponse, request, response)
       }
     } else {
       response.writeHead(404)
       response.end('')
     }
+  }
+
+  /**
+   * Check if there is a matching redirection and execute it if there is one found
+   * @param {string} routePath The path of the current route
+   * @param {CherryIncomingMessage} request The current request
+   * @param {CherryServerResponse} response The current response
+   * @return {boolean} If a redirection is done or not
+   */
+  checkRedirections (routePath, request, response) {
+    const matchingRedirection = this.cherry.redirectionConfigurator
+      .searchMatchingRedirection(
+        routePath,
+        request,
+        response
+      )
+
+    if (matchingRedirection) {
+      matchingRedirection.execute(routePath, request, response)
+      return true
+    }
+
+    return false
+  }
+
+  /**
+   * Execute the request to the route found previously
+   * @param {RouteMatchResponse} matchingRouteResponse The matching route found
+   * @param {CherryIncomingMessage} request The current request
+   * @param {CherryServerResponse} response The current response
+   */
+  executeRoute (matchingRouteResponse, request, response) {
+    request.routeParameters = matchingRouteResponse.getAttributes()
+    request.boundDataToRequest().then(() => {
+      request._route = matchingRouteResponse.getMatchingRoute()
+      this.resolver.resolve(request, response)
+    }).catch((err) => {
+      // @todo : manage error
+      console.log(err)
+      response.writeHead(500)
+      response.end('')
+    })
   }
 }
 

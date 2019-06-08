@@ -61,7 +61,6 @@ describe('request', () => {
         expect(typeof dataValue.params).to.be.equal('object')
         expect(dataValue.params.foo).to.be.equal('bar')
       } catch (e) {
-        console.log(e)
         expect.fail()
       }
 

@@ -145,10 +145,23 @@ function json (ref, refOptions = null) {
   response.call(this, options.statusCode, options.headers, content)
 }
 
+/**
+ * Redirect the user browser
+ * @param {string} redirectUri The redirection uri
+ * @param {number} redirectionCode The redirection code
+ */
+function redirect (redirectUri, redirectionCode = 301) {
+  const headers = {
+    'Location': redirectUri
+  }
+  response.call(this, redirectionCode, headers, '')
+}
+
 module.exports = exports = {
   download,
   html,
-  json
+  json,
+  redirect
 }
 
 Object.defineProperties(exports, {

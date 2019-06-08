@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const routes = require('./routes')
+const redirections = require('./redirections')
 const middlewares = require('./middlewares')
 const Cherry = require('../../src/cherry')
 
@@ -24,6 +25,7 @@ const options = {
     }
   ],
   middlewares,
+  redirections,
   routes
 }
 

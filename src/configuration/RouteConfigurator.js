@@ -5,7 +5,6 @@ const PublicRouteManager = require('../routes/PublicRouteManager')
 const check = require('../helpers/check')
 const format = require('../helpers/format')
 const routers = require('../routes/routers')
-// const EventEmitter = require('events').EventEmitter
 
 class RouteConfigurator extends CherryConfigurator {
   constructor () {
@@ -13,7 +12,6 @@ class RouteConfigurator extends CherryConfigurator {
       routeManager: new RouteManager(routers),
       publicRouteManager: new PublicRouteManager()
     })
-    // this.eventEmitter = new EventEmitter()
   }
 
   /**
@@ -34,11 +32,10 @@ class RouteConfigurator extends CherryConfigurator {
     }
 
     this._configurePublicRoutes()
-    // this._configureRoutes()
   }
 
   /**
-   * Configure the configurator, this method should be implemented
+   * Search the matching route
    * @param {string} route The route to analyze
    * @param {CherryIncomingMessage} request The current request
    * @param {CherryServerResponse} response The response object
@@ -96,17 +93,6 @@ class RouteConfigurator extends CherryConfigurator {
   _configurePublicRoutes () {
     this.manager.publicRouteManager.sortByPriorities()
   }
-
-  /**
-   * Configure the configured routes
-   */
-  /* _configureRoutes () {
-    this.manager.routeManager.getRoutes().forEach((route) => {
-      this.eventEmitter.on(route.name, (req, res) => {
-        // do things ????
-      })
-    })
-  } */
 
   /**
    * Search if a route match in a manager

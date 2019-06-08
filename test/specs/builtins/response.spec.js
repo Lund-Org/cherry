@@ -41,6 +41,9 @@ describe('response', () => {
       await bindedBuiltinResponse.json('{ "foo": "bar" }')
       await bindedBuiltinResponse.json({ 'foo': 'bar' })
     })
+    it('Tests the method redirect', async () => {
+      await bindedBuiltinResponse.redirect('http://google.fr', 301)
+    })
   })
 
   context('private methods', async () => {
