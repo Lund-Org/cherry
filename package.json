@@ -1,6 +1,6 @@
 {
   "name": "@lund-org/cherry",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "A light framework to quickly create a web server",
   "main": "./src/cherry.js",
   "author": "Lund-Org",
