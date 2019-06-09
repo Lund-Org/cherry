@@ -1,5 +1,7 @@
 /* eslint no-unused-expressions: 0 */
 const Dispatcher = require(path.join(__root, './src/processor/Dispatcher'))
+const DefaultErrorPageConfigurator = require(path.join(__root, './src/configuration/DefaultErrorPageConfigurator'))
+const RedirectionConfigurator = require(path.join(__root, './src/configuration/RedirectionConfigurator'))
 
 /* Simulation values */
 
@@ -28,7 +30,9 @@ let fakeCherryInstance = {
         }
       }
     }
-  }
+  },
+  defaultErrorPageConfigurator: new DefaultErrorPageConfigurator(),
+  redirectionConfigurator: new RedirectionConfigurator()
 }
 let fakeRequest = {
   url: 'http://localhost:3000/test',
@@ -44,11 +48,16 @@ let fakeRequest = {
   boundDataToRequest: async () => {}
 }
 let fakeResponse = {
-  writeHead (httpCode) {
+  html: () => {},
+  writeHead: (httpCode) => {
     expect(httpCode).to.be.above(400)
   },
-  end (response) {
+  end: (response) => {
     expect(typeof response).to.be.equal('string')
+  },
+  redirect: (url, statusCode) => {
+    expect(typeof url).to.be.equal('string')
+    expect(statusCode).to.be.equal(301)
   }
 }
 
@@ -57,6 +66,15 @@ let fakeResponse = {
 describe('Dispatcher', () => {
   before(() => {
     dispatcher = new Dispatcher(fakeCherryInstance)
+    fakeCherryInstance.redirectionConfigurator.configure({
+      redirections: [
+        {
+          matchUrl: /\/test\/(.*)/,
+          targetUrl: '/test-with-middlewares?old_path=$1',
+          statusCode: 301
+        }
+      ]
+    })
   })
 
   it('Tests the method dispatch', () => {
@@ -68,7 +86,12 @@ describe('Dispatcher', () => {
 
     shouldBeAnError = false
     expect(() => {
-      dispatcher.dispatch(fakeRequest, fakeResponse)
+      try {
+        dispatcher.dispatch(fakeRequest, fakeResponse)
+      } catch (e) {
+        console.log(e)
+        throw new Error('lol')
+      }
     }).to.not.throw()
 
     shouldBeAnError2 = true
@@ -89,5 +112,10 @@ describe('Dispatcher', () => {
       }
       dispatcher.dispatch(fakeRequest, fakeResponse)
     }).to.not.throw()
+  })
+
+  it('Tests the method checkRedirections', () => {
+    expect(dispatcher.checkRedirections('/test/toto', fakeRequest, fakeResponse)).to.be.true
+    expect(dispatcher.checkRedirections('/tutu', fakeRequest, fakeResponse)).to.be.false
   })
 })

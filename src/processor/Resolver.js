@@ -46,12 +46,9 @@ class Resolver {
           { request, response, processResult: asyncResult },
           asyncResult
         )
-      }).catch((e) => {
-        // @todo use the onError method
-        console.log('Error in _resolve', e)
+      }).catch((error) => {
         if (!response.finished) {
-          response.writeHead(500, { 'Content-Type': 'application/json' })
-          response.end(JSON.stringify(e))
+          this.cherry.defaultErrorPageConfigurator.manager.serverErrorPage(request, response, error)
         }
       })
     } else {
