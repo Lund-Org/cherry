@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const CherryConfigurator = require('../abstract/CherryConfigurator')
 const check = require('../helpers/check')
@@ -34,7 +35,9 @@ class DefaultErrorPageConfigurator extends CherryConfigurator {
    * @param {CherryServerResponse} res The response object
    */
   clientErrorPage (req, res) {
-    res.html(path.join(__dirname, '../assets/default_pages/4xx.html'), { statusCode: 404 })
+    const content = fs.readFileSync(path.join(__dirname, '../assets/default_pages/4xx.html'))
+
+    res.html(content.toString(), { statusCode: 404, isRaw: true })
   }
 
   /**
@@ -44,7 +47,9 @@ class DefaultErrorPageConfigurator extends CherryConfigurator {
    * @param {Error} err The error catch
    */
   serverErrorPage (req, res, err) {
-    res.html(path.join(__dirname, '../assets/default_pages/5xx.html'), { statusCode: 500 })
+    const content = fs.readFileSync(path.join(__dirname, '../assets/default_pages/5xx.html'))
+
+    res.html(content.toString(), { statusCode: 500, isRaw: true })
   }
 }
 

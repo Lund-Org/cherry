@@ -53,11 +53,8 @@ class CherryServer {
       try {
         this.cherry.dispatcher.dispatch(request, response)
       } catch (error) {
-        // if (this.errorCallback) {
-        //   this.errorCallback(request, response, error)
-        // } else {
-        this.defaultErrorManagement(response, error)
-        // }
+        console.log(error)
+        this.cherry.defaultErrorPageConfigurator.manager.serverErrorPage(request, response, error)
       }
     }
   }
@@ -101,17 +98,6 @@ class CherryServer {
     }
 
     return false
-  }
-
-  /**
-   * The default behavior in case of an error
-   * Can be override if the 'onError' option has been set in the options.server object
-   * @param {CherryServerResponse} res The response object
-   * @param {Error} error The exception thrown
-   */
-  defaultErrorManagement (res, error) {
-    res.writeHead(500, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify(error))
   }
 }
 

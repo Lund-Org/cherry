@@ -15,7 +15,6 @@ class CherryServerConfigurator {
       port: this.getServerPort(options),
       securityOptions: this.buildSecurityOptions(options),
       httpsOptions: Object.assign({}, options.httpsOptions),
-      // errorCallback: this.getErrorCallbackFromOptions(options),
       optionCallback: this.getOptionCallbackFromOptions(options)
     }
   }
@@ -70,19 +69,6 @@ class CherryServerConfigurator {
 
     return buildOptions
   }
-
-  // /**
-  //  * Check the security options, provides default values, throw errors on invalid data
-  //  * @param {Object} options The options provided to configure the server
-  //  * @return {Object}
-  //  */
-  // getErrorCallbackFromOptions (options) {
-  //   if (check.isDefined(options, 'onError') && typeof options.onError === 'function') {
-  //     return options.onError
-  //   } else {
-  //     return null
-  //   }
-  // }
 
   /**
    * Check if an option callback has been defined and use it

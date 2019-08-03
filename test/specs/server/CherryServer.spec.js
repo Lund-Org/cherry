@@ -1,5 +1,6 @@
 /* eslint no-unused-expressions: 0 */
 const CherryServer = require(path.join(__root, './src/server/CherryServer'))
+const DefaultErrorPageConfigurator = require(path.join(__root, './src/configuration/DefaultErrorPageConfigurator'))
 
 let cherryServer = null
 let checkPassThroughMethods = 0
@@ -21,6 +22,14 @@ describe('RouteMatchResponse', () => {
         dispatch: () => {
           throw new Error('Test error case')
         }
+      },
+      defaultErrorPageConfigurator: new DefaultErrorPageConfigurator()
+    })
+    cherryServer.cherry.defaultErrorPageConfigurator.configure({
+      defaultPages: {
+        serverErrorPage: (req, res) => {
+          throw new Error('Server error')
+        }
       }
     })
   })
@@ -38,12 +47,6 @@ describe('RouteMatchResponse', () => {
     expect(checkPassThroughMethods).to.be.equal(2)
   })
 
-  it('Tests the method defaultErrorManagement', () => {
-    checkPassThroughMethods = 0
-    cherryServer.defaultErrorManagement(fakeResponse, 'test')
-    expect(checkPassThroughMethods).to.be.equal(2)
-  })
-
   it('Tests the method bootstrap', () => {
     checkPassThroughMethods = 0
     cherryServer.options = {
@@ -53,10 +56,11 @@ describe('RouteMatchResponse', () => {
       optionCallback: null
     }
 
-    cherryServer.bootstrap({
-      method: 'OPTIONS',
-      setCherry: () => {}
-    }, fakeResponse)
-    expect(checkPassThroughMethods).to.be.equal(2)
+    expect(() => {
+      cherryServer.bootstrap({
+        method: 'OPTIONS',
+        setCherry: () => {}
+      }, fakeResponse)
+    }).to.throw()
   })
 })

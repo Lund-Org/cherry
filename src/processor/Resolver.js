@@ -48,7 +48,7 @@ class Resolver {
         )
       }).catch((error) => {
         if (!response.finished) {
-          this.cherry.defaultErrorPageConfigurator.manager.serverErrorPage(request, response, error)
+          cherryInstance.defaultErrorPageConfigurator.manager.serverErrorPage(request, response, error)
         }
       })
     } else {
