@@ -105,7 +105,7 @@ async function html (str, refOptions = null) {
     viewEngine = this.cherry.pluginConfigurator.getPluginInstance('ViewEngine')
   }
 
-  if (!viewEngine) {
+  if (!viewEngine || options.isRaw) {
     viewEngine = {
       loadTemplate: async (path) => {
         htmlContent = await fs.readFile(path)

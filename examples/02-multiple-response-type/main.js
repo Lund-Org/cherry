@@ -9,7 +9,10 @@ const options = {
       port: 4003
     }
   ],
-  plugins: [ CherryHandlebarsConnector, CherryPugConnector ],
+  plugins: [
+    /*CherryHandlebarsConnector,*/
+    CherryPugConnector
+  ],
   routes
 }
 
