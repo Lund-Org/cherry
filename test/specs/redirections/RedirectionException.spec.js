@@ -10,6 +10,6 @@ describe('RouteException', () => {
     expect(error instanceof Error).to.be.true
     expect(() => {
       throw error
-    }).to.throw(`An error occured : The option 'test' is missing or invalid in the redirection definition. Received : {}`)
+    }).to.throw('An error occured : The option \'test\' is missing or invalid in the redirection definition. Received : {}')
   })
 })

@@ -16,7 +16,7 @@ class CherryRouteManager {
 
     for (const Router of routers) {
       if (Router.getType() === routeConfig.type) {
-        let router = new Router(routeConfig)
+        const router = new Router(routeConfig)
 
         this.routes = this.routes.concat(router.build())
         routeTypeMatch = true

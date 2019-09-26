@@ -2,7 +2,7 @@
 const Hook = require(path.join(__root, './src/hooks/Hook'))
 
 let hook = null
-let hookConfig = {
+const hookConfig = {
   name: 'test1',
   method: (datas) => {
     expect(datas).to.be.equal(1)
@@ -16,7 +16,7 @@ describe('Hook', () => {
       hook = new Hook({ withoutName: 'Hi' })
     }).to.throw()
     expect(() => {
-      hook = new Hook({ name: [ 'not a string' ] })
+      hook = new Hook({ name: ['not a string'] })
     }).to.throw()
     expect(() => {
       hook = new Hook({ name: 'greatName' })
@@ -28,7 +28,7 @@ describe('Hook', () => {
       hook = new Hook({ name: 'greatName', method: () => {} })
     }).to.throw()
     expect(() => {
-      hook = new Hook({ name: 'greatName', method: () => {}, type: [ 'not-a-string' ] })
+      hook = new Hook({ name: 'greatName', method: () => {}, type: ['not-a-string'] })
     }).to.throw()
 
     hook = new Hook(hookConfig)

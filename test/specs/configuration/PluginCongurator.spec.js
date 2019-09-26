@@ -46,8 +46,8 @@ describe('HookConfigurator', () => {
   })
 
   it('Tests the method getPlugins', () => {
-    let configuredPlugins = pluginConfigurator.getPlugins()
-    let badConfiguredPlugins = badPluginConfigurator.getPlugins()
+    const configuredPlugins = pluginConfigurator.getPlugins()
+    const badConfiguredPlugins = badPluginConfigurator.getPlugins()
 
     plugins.forEach((plugin) => {
       expect(configuredPlugins[plugin.getIdentifier()]).to.not.be.equal(null)

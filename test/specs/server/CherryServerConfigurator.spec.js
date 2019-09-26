@@ -16,14 +16,14 @@ describe('RouteMatchResponse', () => {
     }).to.throw()
 
     expect(() => {
-      let config = cherryServerConfigurator.buildConfiguration({
+      const config = cherryServerConfigurator.buildConfiguration({
         port: '4000'
       })
       expect(config.port).to.be.equal(4000)
     }).to.not.throw()
 
     expect(() => {
-      let config = cherryServerConfigurator.buildConfiguration({})
+      const config = cherryServerConfigurator.buildConfiguration({})
       expect(config.port).to.be.equal(3000)
     }).to.not.throw()
   })

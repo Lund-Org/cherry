@@ -4,7 +4,7 @@ const stream = require('stream')
 
 let routeConfigurator = null
 let badRouteConfigurator = null
-let routes = [
+const routes = [
   {
     type: 'ROUTE',
     method: ['GET'],
@@ -16,7 +16,7 @@ let routes = [
     }
   }
 ]
-let publicRoutes = [
+const publicRoutes = [
   {
     type: 'PUBLIC_ROUTE_PUBLIC_FOLDER',
     path: path.join(__root, '/test/configurations/fake_public')
@@ -67,25 +67,25 @@ describe('HookConfigurator', () => {
   })
 
   it('Tests the method searchMatchingRoute', () => {
-    let publicRouteFound = routeConfigurator.searchMatchingRoute(
+    const publicRouteFound = routeConfigurator.searchMatchingRoute(
       '/test.json',
       {},
       new stream.Writable({ write: () => {} })
     )
-    let configuredRouteFound = routeConfigurator.searchMatchingRoute(
+    const configuredRouteFound = routeConfigurator.searchMatchingRoute(
       '/unit-test',
       {
         method: 'GET'
       },
       new stream.Writable({ write: () => {} })
     )
-    let routeNotFound = routeConfigurator.searchMatchingRoute('/unit-test', {
+    const routeNotFound = routeConfigurator.searchMatchingRoute('/unit-test', {
       method: 'POST'
     }, {})
-    let routeNotFound2 = routeConfigurator.searchMatchingRoute('/unit-test-fail', {
+    const routeNotFound2 = routeConfigurator.searchMatchingRoute('/unit-test-fail', {
       method: 'GET'
     }, {})
-    let routeNotFound3 = routeConfigurator.searchMatchingRoute(
+    const routeNotFound3 = routeConfigurator.searchMatchingRoute(
       'unit-test',
       {
         method: 'GET'

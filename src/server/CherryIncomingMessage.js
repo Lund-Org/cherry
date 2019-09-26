@@ -7,7 +7,7 @@ class CherryIncomingMessage extends IncomingMessage {
     this.cherry = null
 
     // Bind the builtins methods
-    for (let requestBuiltinName in requestBuiltins) {
+    for (const requestBuiltinName in requestBuiltins) {
       this[requestBuiltinName] = requestBuiltins[requestBuiltinName].bind(this)
     }
   }

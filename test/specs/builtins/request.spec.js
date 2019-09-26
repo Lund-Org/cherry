@@ -2,7 +2,7 @@
 const builtinsRequest = require(path.join(__root, './src/builtins/request'))
 
 let shouldBeAnError = false
-let fakeRequestObject = {
+const fakeRequestObject = {
   url: 'http://localhost:3000/test',
   on (event, requestEventCallback) {
     if (event === 'data') {
@@ -57,7 +57,7 @@ describe('request', () => {
     })
     it('Tests the method boundDataToRequest', async () => {
       try {
-        let dataValue = await fakeRequestObject.boundDataToRequest()
+        const dataValue = await fakeRequestObject.boundDataToRequest()
         expect(typeof dataValue.params).to.be.equal('object')
         expect(dataValue.params.foo).to.be.equal('bar')
       } catch (e) {

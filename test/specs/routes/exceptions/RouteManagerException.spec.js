@@ -10,6 +10,6 @@ describe('RouteManagerException', () => {
     expect(error instanceof Error).to.be.true
     expect(() => {
       throw error
-    }).to.throw(`An error occured : test. The route config sent was : {}`)
+    }).to.throw('An error occured : test. The route config sent was : {}')
   })
 })

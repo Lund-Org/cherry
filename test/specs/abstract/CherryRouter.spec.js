@@ -2,7 +2,7 @@
 const CherryRouter = require(path.join(__root, './src/abstract/CherryRouter'))
 
 let cherryRouter = null
-let baseConfig = { test: true }
+const baseConfig = { test: true }
 
 class TestClass {
   constructor (testConfig) {

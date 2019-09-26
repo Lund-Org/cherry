@@ -37,7 +37,7 @@ class Resolver {
    * @param {CherryServerResponse} response The response object
    */
   _process (callback, request, response, cherryInstance) {
-    let resultOfMethod = callback(request, response, cherryInstance)
+    const resultOfMethod = callback(request, response, cherryInstance)
 
     if (Promise.resolve(resultOfMethod) === resultOfMethod) {
       resultOfMethod.then((asyncResult) => {

@@ -43,7 +43,7 @@ class PublicFolderRouter extends CherryRouter {
    * Check if a route match with this router
    */
   build () {
-    return [ this ]
+    return [this]
   }
 
   /**

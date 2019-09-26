@@ -34,14 +34,14 @@ describe('PublicFolderRouter', () => {
   })
 
   it('Tests the method build', () => {
-    let buildedRoute = publicFolderRouter.build()
+    const buildedRoute = publicFolderRouter.build()
     expect(buildedRoute.length).to.be.equal(1)
     expect(buildedRoute[0]).to.be.equal(publicFolderRouter)
   })
 
   it('Tests the method matchRoute', () => {
-    let routeResponse = publicFolderRouter.matchRoute('/test.json', null, new stream.Writable({ write: () => {} }))
-    let routeResponse2 = publicFolderRouter.matchRoute('/test.png', null, new stream.Writable({ write: () => {} }))
+    const routeResponse = publicFolderRouter.matchRoute('/test.json', null, new stream.Writable({ write: () => {} }))
+    const routeResponse2 = publicFolderRouter.matchRoute('/test.png', null, new stream.Writable({ write: () => {} }))
 
     expect(routeResponse.shouldStop()).to.be.true
     expect(routeResponse2.shouldStop()).to.be.false

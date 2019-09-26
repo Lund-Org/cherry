@@ -2,7 +2,7 @@
 const MiddlewareManager = require(path.join(__root, './src/middlewares/MiddlewareManager'))
 
 let middlewareManager = null
-let config = {
+const config = {
   name: 'middleware-test',
   callback: (next, req, res) => {
     return next.resolve(req, res)

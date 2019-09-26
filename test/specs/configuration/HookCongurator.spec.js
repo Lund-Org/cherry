@@ -26,7 +26,7 @@ describe('HookConfigurator', () => {
   })
 
   it('Tests the method configure', () => {
-    let typesFound = []
+    const typesFound = []
 
     hookConfigurator.configure({
       hooks: copyHooks,

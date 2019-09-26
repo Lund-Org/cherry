@@ -31,7 +31,7 @@ describe('HookConfigurator', () => {
   it('Tests the method configure (failing)', () => {
     expect(() => {
       badMiddlewareConfigurator.configure({
-        middlewares: [ merge({}, copyMiddlewares[0]), merge({}, copyMiddlewares[0]) ]
+        middlewares: [merge({}, copyMiddlewares[0]), merge({}, copyMiddlewares[0])]
       })
     }).to.throw()
   })

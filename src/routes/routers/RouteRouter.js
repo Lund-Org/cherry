@@ -53,7 +53,7 @@ class RouteRouter extends CherryRouter {
     const routeMatchResponse = new RouteMatchResponse()
 
     if (!this.method || this.method.includes(request.method.toUpperCase()) || this.method.includes('*')) {
-      let result = route.match(this.routeRegex)
+      const result = route.match(this.routeRegex)
 
       if (result) {
         result.shift()
@@ -84,7 +84,7 @@ class RouteRouter extends CherryRouter {
    * Get the built route
    */
   build () {
-    return [ this ]
+    return [this]
   }
 
   /**

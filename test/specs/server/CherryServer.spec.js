@@ -4,7 +4,7 @@ const DefaultErrorPageConfigurator = require(path.join(__root, './src/configurat
 
 let cherryServer = null
 let checkPassThroughMethods = 0
-let fakeResponse = {
+const fakeResponse = {
   writeHead: () => {
     ++checkPassThroughMethods
   },

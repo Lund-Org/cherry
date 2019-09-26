@@ -37,7 +37,7 @@ describe('ContextRouter', () => {
   })
 
   it('Tests the method build', () => {
-    let buildedRoute = contextRouter.build()
+    const buildedRoute = contextRouter.build()
 
     expect(buildedRoute.length).to.be.equal(1)
     expect(buildedRoute[0].path).to.be.equal('/test/simple-test/:id/')

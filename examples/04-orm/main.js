@@ -39,7 +39,7 @@ const options = {
       port: 4005
     }
   ],
-  plugins: [ CherrySequelizeConnector, CherryTypeormConnector ],
+  plugins: [CherrySequelizeConnector, CherryTypeormConnector],
   routes,
   database: typeormConfig
   // database: sequelizeConfig

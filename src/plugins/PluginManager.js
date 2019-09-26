@@ -14,7 +14,7 @@ class PluginManager {
    * Register a plugin in the list
    */
   registerPlugin (plugin) {
-    let name = plugin.getIdentifier()
+    const name = plugin.getIdentifier()
 
     if (check.isDefinedAndNotNull(this.plugins, name)) {
       console.warn(`The plugin ${name} has already been defined`)

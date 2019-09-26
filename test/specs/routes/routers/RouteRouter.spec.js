@@ -54,7 +54,7 @@ describe('RouteRouter', () => {
   })
 
   it('Tests the method build', () => {
-    let buildedRoute = routeRouter.build()
+    const buildedRoute = routeRouter.build()
 
     expect(buildedRoute.length).to.be.equal(1)
     expect(buildedRoute[0]).to.be.equal(routeRouter)

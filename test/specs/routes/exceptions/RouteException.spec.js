@@ -10,6 +10,6 @@ describe('RouteException', () => {
     expect(error instanceof Error).to.be.true
     expect(() => {
       throw error
-    }).to.throw(`An error occured : The option 'test' is missing in the route definition`)
+    }).to.throw('An error occured : The option \'test\' is missing in the route definition')
   })
 })

@@ -1,6 +1,6 @@
 const builtinsResponse = require(path.join(__root, './src/builtins/response'))
 
-let fakeResponseObject = {
+const fakeResponseObject = {
   writeHead (code = 200, headers = {}) {
     expect(typeof code).to.be.equal('number')
     expect(typeof headers).to.be.equal('object')
@@ -16,18 +16,18 @@ let fakeResponseObject = {
     }
   }
 }
-let bindedBuiltinResponse = {}
-let privateBindedBuiltinResponse = {}
+const bindedBuiltinResponse = {}
+const privateBindedBuiltinResponse = {}
 
 describe('response', () => {
   before(() => {
     for (const builtinIndex in builtinsResponse) {
       bindedBuiltinResponse[builtinIndex] = builtinsResponse[builtinIndex].bind(fakeResponseObject)
     }
-    privateBindedBuiltinResponse['response'] = builtinsResponse['response'].bind(fakeResponseObject)
-    privateBindedBuiltinResponse['defaultDownloadOptions'] = builtinsResponse['defaultDownloadOptions'].bind(fakeResponseObject)
-    privateBindedBuiltinResponse['defaultHTMLOptions'] = builtinsResponse['defaultHTMLOptions'].bind(fakeResponseObject)
-    privateBindedBuiltinResponse['defaultJSONOptions'] = builtinsResponse['defaultJSONOptions'].bind(fakeResponseObject)
+    privateBindedBuiltinResponse.response = builtinsResponse.response.bind(fakeResponseObject)
+    privateBindedBuiltinResponse.defaultDownloadOptions = builtinsResponse.defaultDownloadOptions.bind(fakeResponseObject)
+    privateBindedBuiltinResponse.defaultHTMLOptions = builtinsResponse.defaultHTMLOptions.bind(fakeResponseObject)
+    privateBindedBuiltinResponse.defaultJSONOptions = builtinsResponse.defaultJSONOptions.bind(fakeResponseObject)
   })
 
   context('exported methods', () => {
@@ -39,7 +39,7 @@ describe('response', () => {
     })
     it('Tests the method json', async () => {
       await bindedBuiltinResponse.json('{ "foo": "bar" }')
-      await bindedBuiltinResponse.json({ 'foo': 'bar' })
+      await bindedBuiltinResponse.json({ foo: 'bar' })
     })
     it('Tests the method redirect', async () => {
       await bindedBuiltinResponse.redirect('http://google.fr', 301)

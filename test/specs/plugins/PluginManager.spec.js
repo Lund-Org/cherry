@@ -20,7 +20,7 @@ describe('PluginManager', () => {
   })
 
   it('Tests the method getPlugins', () => {
-    let plugins = pluginManager.getPlugins()
+    const plugins = pluginManager.getPlugins()
 
     expect(plugins.ViewEngine).to.not.be.equal(null)
     expect(plugins.DatabaseEngine).to.be.equal(null)

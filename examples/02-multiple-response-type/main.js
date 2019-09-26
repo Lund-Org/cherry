@@ -1,6 +1,6 @@
 const routes = require('./routes')
 const Cherry = require('../../src/cherry')
-const CherryHandlebarsConnector = require('@lund-org/cherry-handlebars-connector')
+// const CherryHandlebarsConnector = require('@lund-org/cherry-handlebars-connector')
 const CherryPugConnector = require('@lund-org/cherry-pug-connector')
 
 const options = {
@@ -10,7 +10,7 @@ const options = {
     }
   ],
   plugins: [
-    /*CherryHandlebarsConnector,*/
+    // CherryHandlebarsConnector,
     CherryPugConnector
   ],
   routes

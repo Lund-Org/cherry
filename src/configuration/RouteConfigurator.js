@@ -106,7 +106,7 @@ class RouteConfigurator extends CherryConfigurator {
     let routeResponse = null
 
     manager.getRoutes().some((publicRoute) => {
-      let tmp = publicRoute.matchRoute(route, req, res)
+      const tmp = publicRoute.matchRoute(route, req, res)
 
       if (tmp.getMatchingRoute()) {
         routeResponse = tmp

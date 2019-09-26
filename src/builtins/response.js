@@ -152,7 +152,7 @@ function json (ref, refOptions = null) {
  */
 function redirect (redirectUri, redirectionCode = 301) {
   const headers = {
-    'Location': redirectUri
+    Location: redirectUri
   }
   response.call(this, redirectionCode, headers, '')
 }

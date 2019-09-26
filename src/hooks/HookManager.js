@@ -32,7 +32,7 @@ class HookManager {
       this.hooks[_hook.getType()] = []
     }
 
-    for (let index in this.hooks) {
+    for (const index in this.hooks) {
       this.hooks[index].forEach((hook) => {
         if (_hook.getName() === hook.getName()) {
           duplicateFound = true
@@ -53,7 +53,7 @@ class HookManager {
   bindEventEmitter (eventEmitter) {
     this._sortByPriorities()
 
-    for (let index in this.hooks) {
+    for (const index in this.hooks) {
       // Bind the type of hooks
       if (!eventEmitter.eventNames().includes(index)) {
         eventEmitter.on(index, (data) => {
@@ -75,7 +75,7 @@ class HookManager {
    * Sort the hooks by priorities
    */
   _sortByPriorities () {
-    for (let index in this.hooks) {
+    for (const index in this.hooks) {
       this.hooks[index].sort((hookA, hookB) => {
         return hookA.getPriority() < hookB.getPriority()
       })

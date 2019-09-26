@@ -8,7 +8,7 @@ const RedirectionConfigurator = require(path.join(__root, './src/configuration/R
 let shouldBeAnError = false
 let shouldBeAnError2 = false
 let dispatcher = null
-let fakeCherryInstance = {
+const fakeCherryInstance = {
   routeConfigurator: {
     searchMatchingRoute () {
       if (shouldBeAnError) {
@@ -34,7 +34,7 @@ let fakeCherryInstance = {
   defaultErrorPageConfigurator: new DefaultErrorPageConfigurator(),
   redirectionConfigurator: new RedirectionConfigurator()
 }
-let fakeRequest = {
+const fakeRequest = {
   url: 'http://localhost:3000/test',
   on (event, requestEventCallback) {
     if (event === 'data') {
@@ -47,7 +47,7 @@ let fakeRequest = {
   },
   boundDataToRequest: async () => {}
 }
-let fakeResponse = {
+const fakeResponse = {
   html: () => {},
   writeHead: (httpCode) => {
     expect(httpCode).to.be.above(400)

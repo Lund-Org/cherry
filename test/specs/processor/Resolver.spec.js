@@ -7,7 +7,7 @@
 const Resolver = require(path.join(__root, './src/processor/Resolver'))
 
 let resolver = null
-let fakeResponse = {
+const fakeResponse = {
   writeHead (httpCode) {
     expect(httpCode).to.be.above(400)
   },

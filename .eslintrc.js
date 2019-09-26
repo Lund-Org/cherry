@@ -10,7 +10,8 @@ module.exports = {
     mocha: true
   },
   rules: {
-    'arrow-parens': 0
+    'arrow-parens': 0,
+    'node/no-deprecated-api': 0
   },
   globals: {
     __root: true,

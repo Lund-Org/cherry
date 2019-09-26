@@ -33,7 +33,7 @@ class PluginConfigurator extends CherryConfigurator {
    * @return {mixed}
    */
   getPluginInstance (name) {
-    let PluginClass = this.getPlugin(name)
+    const PluginClass = this.getPlugin(name)
 
     if (typeof PluginClass !== 'undefined' && PluginClass) {
       return new PluginClass()

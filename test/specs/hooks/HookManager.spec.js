@@ -3,7 +3,7 @@ const HookManager = require(path.join(__root, './src/hooks/HookManager'))
 const EventEmitter = require('events').EventEmitter
 
 let hookManager = null
-let eventEmitter = new EventEmitter()
+const eventEmitter = new EventEmitter()
 
 describe('HookManager', () => {
   before(() => {

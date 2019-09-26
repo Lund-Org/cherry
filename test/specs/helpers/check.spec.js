@@ -9,7 +9,7 @@ describe('check', () => {
     expect(check.isSelfDefined('test')).to.be.equal(true)
     expect(check.isSelfDefined(null)).to.be.equal(true)
     expect(check.isSelfDefined({ test: true })).to.be.equal(true)
-    expect(check.isSelfDefined([ 1, 2, 3 ])).to.be.equal(true)
+    expect(check.isSelfDefined([1, 2, 3])).to.be.equal(true)
 
     /* Fail test */
     expect(check.isSelfDefined()).to.be.equal(false)

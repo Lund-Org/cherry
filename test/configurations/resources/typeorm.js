@@ -9,7 +9,7 @@ class User {
     this.updated_at = new Date()
 
     if (typeof data !== 'undefined') {
-      for (let index in data) {
+      for (const index in data) {
         if (typeof this[index] !== 'undefined') {
           this[index] = data[index]
         }
@@ -21,7 +21,7 @@ class User {
 module.exports = {
   postConnectionProcess: (connection, options) => {
     describe('ORM', () => {
-      it(`Test the postConnectionProcess`, (done) => {
+      it('Test the postConnectionProcess', (done) => {
         expect(typeof connection).to.not.be.equal(undefined)
         expect(typeof options).to.not.be.equal(undefined)
         done()

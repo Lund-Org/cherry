@@ -6,7 +6,7 @@ class CherryServerResponse extends ServerResponse {
     super(arg)
 
     // Bind the builtins methods
-    for (let responseBuiltinName in responseBuiltins) {
+    for (const responseBuiltinName in responseBuiltins) {
       this[responseBuiltinName] = responseBuiltins[responseBuiltinName].bind(this)
     }
     this.cherry = null

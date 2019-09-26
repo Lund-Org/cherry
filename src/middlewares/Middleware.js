@@ -12,7 +12,7 @@ class Middleware {
       this.name = middlewareOptions.name
     }
 
-    if (!check.isDefined(middlewareOptions, 'callback') || typeof middlewareOptions['callback'] !== 'function') {
+    if (!check.isDefined(middlewareOptions, 'callback') || typeof middlewareOptions.callback !== 'function') {
       throw new MiddlewareBadConfigurationException(this.name, 'callback', 'function')
     }
     this.process = middlewareOptions.callback

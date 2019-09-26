@@ -2,7 +2,7 @@
 const ORMManager = require(path.join(__root, './src/orm/ORMManager'))
 
 let ormManager = null
-let fakeCherry = {
+const fakeCherry = {
   hookConfigurator: {
     trigger: () => {}
   }

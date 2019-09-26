@@ -37,7 +37,7 @@ module.exports = {
       method: ['GET'],
       path: '/json-object',
       callback: (req, res) => {
-        let obj = {
+        const obj = {
           key: 'value'
         }
         obj.circular = obj
